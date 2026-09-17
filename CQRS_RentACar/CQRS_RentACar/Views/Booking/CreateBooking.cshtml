@@ -1,0 +1,93 @@
+﻿<form asp-controller="Booking"
+      asp-action="CreateBooking"
+      method="post">
+
+    <input type="hidden"
+           name="CarId"
+           value="@ViewBag.CarId" />
+
+    <input type="hidden"
+           name="PickUpLocation"
+           value="@ViewBag.PickUpLocation" />
+
+    <input type="hidden"
+           name="DropOffLocation"
+           value="@ViewBag.DropOffLocation" />
+
+    <input type="hidden"
+           name="PickUpDate"
+           value="@(((DateTime)ViewBag.PickUpDate)
+                          .ToString("yyyy-MM-ddTHH:mm"))" />
+
+    <input type="hidden"
+           name="DropOffDate"
+           value="@(((DateTime)ViewBag.DropOffDate)
+                          .ToString("yyyy-MM-ddTHH:mm"))" />
+
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Alış Lokasyonu
+        </label>
+
+        <input type="text"
+               class="form-control"
+               value="@ViewBag.PickUpLocation"
+               readonly />
+
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Teslim Lokasyonu
+        </label>
+
+        <input type="text"
+               class="form-control"
+               value="@ViewBag.DropOffLocation"
+               readonly />
+
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Alış Tarihi
+        </label>
+
+        <input type="text"
+               class="form-control"
+               value="@(((DateTime)ViewBag.PickUpDate)
+                                  .ToString("dd.MM.yyyy HH:mm"))"
+               readonly />
+
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Teslim Tarihi
+        </label>
+
+        <input type="text"
+               class="form-control"
+               value="@(((DateTime)ViewBag.DropOffDate)
+                                  .ToString("dd.MM.yyyy HH:mm"))"
+               readonly />
+
+    </div>
+
+
+    <button type="submit"
+            class="btn btn-primary w-100">
+
+        Rezervasyonu Onayla
+
+    </button>
+
+</form>

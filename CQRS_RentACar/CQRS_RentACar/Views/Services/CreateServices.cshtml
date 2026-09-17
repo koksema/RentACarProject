@@ -1,0 +1,182 @@
+﻿@model CQRS_RentACar.CQRSPattern.Commands.ServicesCommands.CreateServicesCommand
+
+@{
+    ViewData["Title"] = "Yeni Hizmet Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-10">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white border-0 pt-4 px-4">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="me-3"
+                             style="
+                                width:48px;
+                                height:48px;
+                                border-radius:12px;
+                                background:#eaf4ff;
+                                color:#1688e7;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:19px;
+                             ">
+
+                            <i class="fa fa-cogs"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h5 class="fw-bold mb-1">
+                                Yeni Hizmet Ekle
+                            </h5>
+
+                            <small class="text-muted">
+                                Sistemde gösterilecek yeni bir hizmet oluşturabilirsiniz.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body p-4">
+
+                    <form asp-controller="Services"
+                          asp-action="CreateServices"
+                          method="post">
+
+                        <div class="row g-4">
+
+
+                            <!-- BAŞLIK -->
+                            <div class="col-12">
+
+                                <label asp-for="Title"
+                                       class="form-label fw-semibold">
+                                    Hizmet Başlığı
+                                </label>
+
+                                <input asp-for="Title"
+                                       class="form-control"
+                                       placeholder="Örn: 7/24 Yol Yardımı"
+                                       required />
+
+                            </div>
+
+
+                            <!-- AÇIKLAMA -->
+                            <div class="col-12">
+
+                                <label asp-for="Description"
+                                       class="form-label fw-semibold">
+                                    Açıklama
+                                </label>
+
+                                <textarea asp-for="Description"
+                                          class="form-control"
+                                          rows="6"
+                                          placeholder="Hizmet hakkında açıklama giriniz..."
+                                          required></textarea>
+
+                            </div>
+
+
+                            <!-- İKON -->
+                            <div class="col-12">
+
+                                <label asp-for="IconUrl"
+                                       class="form-label fw-semibold">
+                                    İkon
+                                </label>
+
+                                <input asp-for="IconUrl"
+                                       id="serviceIcon"
+                                       class="form-control"
+                                       placeholder="Örn: fa fa-car" />
+
+                                <small class="text-muted">
+                                    Kullanılacak ikonun CSS sınıfını girin.
+                                    Örneğin: fa fa-car
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4" />
+
+
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a asp-controller="Services"
+                               asp-action="AllServices"
+                               class="btn btn-outline-secondary">
+
+                                <i class="fa fa-arrow-left me-1"></i>
+                                Vazgeç
+
+                            </a>
+
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fa fa-save me-1"></i>
+                                Hizmeti Kaydet
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const input =
+            document.getElementById("serviceIcon");
+
+        const preview =
+            document.getElementById("serviceIconPreview");
+
+
+        input.addEventListener("input", function () {
+
+            const iconClass = this.value.trim();
+
+            if (iconClass !== "") {
+                preview.className = iconClass;
+            }
+            else {
+                preview.className = "fa fa-cogs";
+            }
+
+        });
+
+    });
+
+</script>

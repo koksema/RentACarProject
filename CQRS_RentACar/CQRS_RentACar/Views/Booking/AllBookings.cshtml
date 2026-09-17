@@ -1,0 +1,333 @@
+﻿@model List<CQRS_RentACar.CQRSPattern.Results.BookingResults.GetBookingQueryResult>
+
+@{
+    ViewData["Title"] = "Rezervasyonlar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .booking-page {
+        background: #f6f8fb;
+        min-height: calc(100vh - 70px);
+        padding: 25px;
+    }
+
+    .booking-card {
+        background: #fff;
+        border: 1px solid #e7edf2;
+        border-radius: 14px;
+        padding: 24px;
+        box-shadow: 0 8px 25px rgba(20,40,60,.05);
+    }
+
+    .booking-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+        gap: 15px;
+    }
+
+    .booking-title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .booking-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        background: #eaf4ff;
+        color: #1688e7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .booking-title-wrap h4 {
+        margin: 0;
+        color: #183149;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .booking-title-wrap p {
+        margin: 3px 0 0;
+        color: #8c98a5;
+        font-size: 11px;
+    }
+
+    .booking-count {
+        background: #1688e7;
+        color: #fff;
+        border-radius: 20px;
+        padding: 7px 14px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .booking-table thead th {
+        color: #7b8997;
+        font-size: 11px;
+        border-bottom: 1px solid #e8edf2;
+        padding: 13px 10px;
+        white-space: nowrap;
+    }
+
+    .booking-table tbody td {
+        font-size: 11px;
+        color: #536575;
+        vertical-align: middle;
+        padding: 13px 10px;
+        border-color: #edf0f3;
+    }
+
+    .location-box strong {
+        color: #1d3247;
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    .status-badge {
+        display: inline-block;
+        border-radius: 15px;
+        padding: 5px 9px;
+        font-size: 9px;
+        font-weight: 600;
+    }
+
+    .status-upcoming {
+        background: #e5f3ff;
+        color: #1688e7;
+    }
+
+    .status-active {
+        background: #e4f8ed;
+        color: #20a765;
+    }
+
+    .status-completed {
+        background: #f0e8fc;
+        color: #8354d5;
+    }
+
+    .btn-booking {
+        border-radius: 7px;
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+
+    @@media(max-width: 767px) {
+        .booking-page {
+            padding: 15px;
+        }
+
+        .booking-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+
+
+<div class="booking-page">
+
+    <div class="booking-card">
+
+        <div class="booking-header">
+
+            <div class="booking-title-wrap">
+
+                <div class="booking-icon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+
+                <div>
+                    <h4>Rezervasyonlar</h4>
+                    <p>
+                        Sistemde oluşturulan tüm araç rezervasyonları
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="booking-count">
+                Toplam: @(Model?.Count ?? 0)
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table booking-table">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Araç</th>
+                        <th>Alış Lokasyonu</th>
+                        <th>Teslim Lokasyonu</th>
+                        <th>Alış Tarihi</th>
+                        <th>Teslim Tarihi</th>
+                        <th>Gün</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        int count = 0;
+
+                        foreach (var item in Model)
+                        {
+                            count++;
+
+                            var totalDays =
+                            (item.DropOffDate - item.PickUpDate)
+                            .TotalDays;
+
+                            if (totalDays < 1)
+                            {
+                                totalDays = 1;
+                            }
+
+                            string statusText;
+                            string statusClass;
+
+                            if (item.PickUpDate > DateTime.Now)
+                            {
+                                statusText = "Yaklaşan";
+                                statusClass = "status-upcoming";
+                            }
+                            else if (
+                            item.PickUpDate <= DateTime.Now &&
+                            item.DropOffDate >= DateTime.Now
+                            )
+                            {
+                                statusText = "Devam Ediyor";
+                                statusClass = "status-active";
+                            }
+                            else
+                            {
+                                statusText = "Tamamlandı";
+                                statusClass = "status-completed";
+                            }
+
+                            <tr>
+
+                                <td>
+                                    @count
+                                </td>
+
+
+                                <td>
+                                    <strong>
+                                        @item.CarBrand @item.CarModel
+                                    </strong>
+                                </td>
+
+
+                                <td>
+                                    <div class="location-box">
+                                        <strong>
+                                            @item.PickUpLocation
+                                        </strong>
+                                    </div>
+                                </td>
+
+
+                                <td>
+                                    <div class="location-box">
+                                        <strong>
+                                            @item.DropOffLocation
+                                        </strong>
+                                    </div>
+                                </td>
+
+
+                                <td>
+                                    @item.PickUpDate.ToString("dd.MM.yyyy HH:mm")
+                                </td>
+
+
+                                <td>
+                                    @item.DropOffDate.ToString("dd.MM.yyyy HH:mm")
+                                </td>
+
+
+                                <td>
+                                    @Math.Ceiling(totalDays) Gün
+                                </td>
+
+
+                                <td>
+
+                                    <span class="status-badge @statusClass">
+                                        @statusText
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <a asp-controller="Booking"
+                                       asp-action="UpdateBooking"
+                                       asp-route-id="@item.BookingId"
+                                       class="btn btn-outline-primary btn-booking">
+
+                                        <i class="fa fa-pencil"></i>
+                                        Düzenle
+
+                                    </a>
+
+                                    <a asp-controller="Booking"
+                                       asp-action="DeleteBooking"
+                                       asp-route-BookingId="@item.BookingId"
+                                       class="btn btn-outline-danger btn-booking"
+                                       onclick="return confirm('Bu rezervasyonu silmek istediğinize emin misiniz?');">
+
+                                        <i class="fa fa-trash"></i>
+                                        Sil
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="9"
+                                class="text-center py-5 text-muted">
+
+                                <i class="fa fa-calendar-o fa-2x mb-2"></i>
+
+                                <div>
+                                    Henüz rezervasyon bulunmamaktadır.
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

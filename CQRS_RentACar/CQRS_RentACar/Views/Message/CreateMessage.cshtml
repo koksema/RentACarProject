@@ -1,0 +1,481 @@
+﻿@model CQRS_RentACar.CQRSPattern.Commands.MessageCommands.CreateMessageCommand
+
+@{
+    ViewData["Title"] = "Yeni Mesaj Oluştur";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-9 col-lg-10">
+
+            <div class="card border-0 shadow-sm">
+
+                <!-- HEADER -->
+                <div class="card-header bg-white border-0 pt-4 px-4">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="me-3"
+                             style="
+                                width:48px;
+                                height:48px;
+                                border-radius:12px;
+                                background:#eaf4ff;
+                                color:#1688e7;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:19px;
+                             ">
+
+                            <i class="fa fa-envelope"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h5 class="fw-bold mb-1">
+                                Yeni Mesaj Oluştur
+                            </h5>
+
+                            <small class="text-muted">
+                                Yeni bir müşteri mesajı oluşturabilirsiniz.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BODY -->
+                <div class="card-body p-4">
+
+                    <form id="messageForm">
+
+                        <div class="row g-4">
+
+
+                            <!-- AD -->
+                            <div class="col-md-6">
+
+                                <label asp-for="Name"
+                                       class="form-label fw-semibold">
+                                    Ad
+                                </label>
+
+                                <input asp-for="Name"
+                                       class="form-control"
+                                       placeholder="Ad"
+                                       required />
+
+                            </div>
+
+
+                            <!-- SOYAD -->
+                            <div class="col-md-6">
+
+                                <label asp-for="Surname"
+                                       class="form-label fw-semibold">
+                                    Soyad
+                                </label>
+
+                                <input asp-for="Surname"
+                                       class="form-control"
+                                       placeholder="Soyad"
+                                       required />
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+                            <div class="col-md-6">
+
+                                <label asp-for="Email"
+                                       class="form-label fw-semibold">
+                                    E-Posta
+                                </label>
+
+                                <input asp-for="Email"
+                                       type="email"
+                                       class="form-control"
+                                       placeholder="ornek@mail.com"
+                                       required />
+
+                            </div>
+
+
+                            <!-- TELEFON -->
+                            <div class="col-md-6">
+
+                                <label asp-for="Phone"
+                                       class="form-label fw-semibold">
+                                    Telefon
+                                </label>
+
+                                <input asp-for="Phone"
+                                       type="tel"
+                                       class="form-control"
+                                       placeholder="05xx xxx xx xx" />
+
+                            </div>
+
+
+                            <!-- KONU -->
+                            <div class="col-12">
+
+                                <label asp-for="Subject"
+                                       class="form-label fw-semibold">
+                                    Konu
+                                </label>
+
+                                <input asp-for="Subject"
+                                       class="form-control"
+                                       placeholder="Mesaj konusu"
+                                       required />
+
+                            </div>
+
+
+                            <!-- MESAJ -->
+                            <div class="col-12">
+
+                                <label asp-for="MessageDeatil"
+                                       class="form-label fw-semibold">
+                                    Mesaj
+                                </label>
+
+                                <textarea asp-for="MessageDeatil"
+                                          class="form-control"
+                                          rows="6"
+                                          placeholder="Mesajınızı yazınız..."
+                                          required></textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4" />
+
+
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a asp-controller="Message"
+                               asp-action="AllMessage"
+                               class="btn btn-outline-secondary">
+
+                                <i class="fa fa-arrow-left me-1"></i>
+                                Vazgeç
+
+                            </a>
+
+
+                            <button type="submit"
+                                    id="sendMessageButton"
+                                    class="btn btn-primary">
+
+                                <i class="fa fa-paper-plane me-1"></i>
+                                Mesajı Gönder
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                    <!-- YÜKLENİYOR -->
+                    <div id="messageLoading"
+                         class="text-center py-5 d-none">
+
+                        <div class="spinner-border text-primary"
+                             role="status">
+                        </div>
+
+                        <h6 class="mt-3 mb-1">
+                            Mesaj gönderiliyor...
+                        </h6>
+
+                        <small class="text-muted">
+                            Yapay zeka yanıtı hazırlanıyor.
+                        </small>
+
+                    </div>
+
+
+                    <!-- BAŞARI -->
+                    <div id="messageSuccess"
+                         class="d-none mt-4">
+
+                        <div class="alert alert-success border-0 shadow-sm">
+
+                            <div class="d-flex align-items-center">
+
+                                <div class="me-3"
+                                     style="
+                                        width:42px;
+                                        height:42px;
+                                        border-radius:50%;
+                                        background:#d1e7dd;
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                     ">
+
+                                    <i class="fa fa-check"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Mesaj başarıyla kaydedildi
+                                    </strong>
+
+                                    <div id="successMessage"
+                                         class="small mt-1">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- AI CEVABI -->
+                        <div id="aiReplyBox"
+                             class="card border-0 bg-light mt-3 d-none">
+
+                            <div class="card-body p-4">
+
+                                <div class="d-flex align-items-center mb-3">
+
+                                    <div class="me-3"
+                                         style="
+                                            width:42px;
+                                            height:42px;
+                                            border-radius:50%;
+                                            background:#eaf4ff;
+                                            color:#1688e7;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                         ">
+
+                                        <i class="fa fa-robot"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Yapay Zeka Yanıtı
+                                        </strong>
+
+                                        <div class="small text-muted">
+                                            Gemini tarafından oluşturuldu
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div id="aiReplyText"
+                                     style="
+                                        white-space:pre-line;
+                                        line-height:1.7;
+                                     ">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- AI UYARISI -->
+                        <div id="aiWarning"
+                             class="alert alert-warning mt-3 d-none">
+                        </div>
+
+
+                        <div class="text-end mt-3">
+
+                            <a asp-controller="Message"
+                               asp-action="AllMessage"
+                               class="btn btn-primary">
+
+                                <i class="fa fa-envelope-open me-1"></i>
+                                Tüm Mesajlara Git
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- HATA -->
+                    <div id="messageError"
+                         class="alert alert-danger mt-4 d-none">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const form =
+            document.getElementById("messageForm");
+
+        const button =
+            document.getElementById("sendMessageButton");
+
+        const loading =
+            document.getElementById("messageLoading");
+
+        const success =
+            document.getElementById("messageSuccess");
+
+        const successMessage =
+            document.getElementById("successMessage");
+
+        const errorBox =
+            document.getElementById("messageError");
+
+        const aiReplyBox =
+            document.getElementById("aiReplyBox");
+
+        const aiReplyText =
+            document.getElementById("aiReplyText");
+
+        const aiWarning =
+            document.getElementById("aiWarning");
+
+
+        form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+
+            errorBox.classList.add("d-none");
+
+            success.classList.add("d-none");
+
+            aiReplyBox.classList.add("d-none");
+
+            aiWarning.classList.add("d-none");
+
+
+            button.disabled = true;
+
+            form.classList.add("d-none");
+
+            loading.classList.remove("d-none");
+
+
+            try {
+
+                const formData =
+                    new FormData(form);
+
+
+                const response =
+                    await fetch(
+                        '@Url.Action("CreateMessage", "Message")',
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                loading.classList.add("d-none");
+
+
+                if (data.success) {
+
+                    success.classList.remove("d-none");
+
+                    successMessage.textContent =
+                        data.message || "Mesaj başarıyla gönderildi.";
+
+
+                    // AI cevabı başarılıysa
+                    if (data.aiSuccess && data.aiReply) {
+
+                        aiReplyText.textContent =
+                            data.aiReply;
+
+                        aiReplyBox.classList.remove("d-none");
+
+                    }
+
+
+                    // AI tarafında uyarı varsa
+                    if (data.warning) {
+
+                        aiWarning.textContent =
+                            data.warning;
+
+                        aiWarning.classList.remove("d-none");
+
+                    }
+
+                }
+                else {
+
+                    form.classList.remove("d-none");
+
+                    errorBox.textContent =
+                        data.message || "Mesaj gönderilemedi.";
+
+                    errorBox.classList.remove("d-none");
+
+                    button.disabled = false;
+
+                }
+
+            }
+            catch (error) {
+
+                loading.classList.add("d-none");
+
+                form.classList.remove("d-none");
+
+                button.disabled = false;
+
+                errorBox.textContent =
+                    "Mesaj gönderilirken beklenmeyen bir hata oluştu.";
+
+                errorBox.classList.remove("d-none");
+
+                console.error(error);
+
+            }
+
+        });
+
+    });
+
+</script>

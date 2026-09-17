@@ -1,0 +1,179 @@
+﻿@model CQRS_RentACar.CQRSPattern.Results.TestimonialResults.GetTestimonialByIdQueryResult
+
+@{
+    ViewData["Title"] = "Müşteri Yorumu Sil";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-7 col-lg-9">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-5 text-center">
+
+
+                    <!-- DELETE ICON -->
+                    <div style="
+                        width:75px;
+                        height:75px;
+                        margin:0 auto 20px;
+                        border-radius:50%;
+                        background:#fff0f1;
+                        color:#e63946;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:28px;
+                    ">
+
+                        <i class="fa fa-trash"></i>
+
+                    </div>
+
+
+                    <h4 class="fw-bold mb-2">
+                        Müşteri Yorumunu Sil
+                    </h4>
+
+
+                    <p class="text-muted mb-4">
+                        Bu müşteri yorumunu sistemden silmek
+                        istediğinize emin misiniz?
+                    </p>
+
+
+                    <!-- TESTIMONIAL CARD -->
+                    <div class="bg-light rounded p-4 mb-4">
+
+
+                        @if (!string.IsNullOrWhiteSpace(Model.ImgUrl))
+                        {
+                            <div class="mb-3">
+
+                                <img src="@Model.ImgUrl"
+                                     alt="@Model.Name"
+                                     style="
+                                            width:120px;
+                                            height:120px;
+                                            object-fit:cover;
+                                            border-radius:50%;
+                                            border:4px solid white;
+                                            box-shadow:0 5px 20px rgba(0,0,0,.08);
+                                         " />
+
+                            </div>
+                        }
+
+
+                        <h5 class="fw-bold mb-1">
+                            @Model.Name
+                        </h5>
+
+
+                        <div class="text-muted mb-3">
+                            @Model.Profession
+                        </div>
+
+
+                        <!-- STARS -->
+                        <div class="mb-3"
+                             style="color:#ffc107; font-size:20px;">
+
+                            @for (int i = 0; i < Model.Star; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+
+                        </div>
+
+
+                        <!-- COMMENT -->
+                        <div class="bg-white rounded p-3 text-start mb-3">
+
+                            <small class="text-muted d-block mb-2">
+                                Müşteri Yorumu
+                            </small>
+
+                            <div style="line-height:1.7;">
+                                @Model.Comment
+                            </div>
+
+                        </div>
+
+
+                        <div class="text-start">
+
+                            <small class="text-muted d-block">
+                                Yorum ID
+                            </small>
+
+                            <strong>
+                                #@Model.TestimonialId
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WARNING -->
+                    <div class="alert alert-warning text-start">
+
+                        <i class="fa fa-exclamation-triangle me-2"></i>
+
+                        <strong>Dikkat:</strong>
+
+                        Bu işlem geri alınamaz. Müşteri yorumu
+                        sistemden kalıcı olarak silinecektir.
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+
+
+                        <a asp-controller="Testimonial"
+                           asp-action="AllTestimonial"
+                           class="btn btn-outline-secondary px-4">
+
+                            <i class="fa fa-arrow-left me-1"></i>
+                            Vazgeç
+
+                        </a>
+
+
+                        <form asp-controller="Testimonial"
+                              asp-action="DeleteTestimonialConfirmed"
+                              method="post">
+
+                            <input type="hidden"
+                                   name="testimonialId"
+                                   value="@Model.TestimonialId" />
+
+
+                            <button type="submit"
+                                    class="btn btn-danger px-4">
+
+                                <i class="fa fa-trash me-1"></i>
+                                Evet, Yorumu Sil
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

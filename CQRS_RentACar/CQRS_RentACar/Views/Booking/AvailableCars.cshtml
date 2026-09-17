@@ -1,0 +1,432 @@
+﻿@model List<CQRS_RentACar.CQRSPattern.Results.BookingResults.GetAvailableCarsQueryResult>
+
+@{
+    ViewData["Title"] = "Müsait Araçlar";
+}
+
+<style>
+    .available-page {
+        background: #f6f8fb;
+        min-height: 100vh;
+        padding: 45px 0;
+    }
+
+    .available-title {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+        .available-title h2 {
+            color: #1f2d3d;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .available-title p {
+            color: #7d8b99;
+            margin: 0;
+        }
+
+    .search-summary {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 24px rgba(0,0,0,.05);
+    }
+
+    .summary-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: #546575;
+    }
+
+        .summary-box i {
+            color: #ea001e;
+            font-size: 17px;
+        }
+
+    .car-card {
+        background: #ffffff;
+        border: 1px solid #edf0f3;
+        border-radius: 15px;
+        overflow: hidden;
+        height: 100%;
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+        transition: .25s;
+    }
+
+        .car-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(0,0,0,.10);
+        }
+
+    .car-image {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        background: #f3f5f7;
+    }
+
+        .car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .car-body {
+        padding: 20px;
+    }
+
+    .car-title {
+        color: #17283a;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .car-subtitle {
+        color: #8d99a6;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .car-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+        margin-bottom: 18px;
+    }
+
+    .car-info-item {
+        background: #f7f9fb;
+        border-radius: 8px;
+        padding: 9px;
+        font-size: 11px;
+        color: #596b7d;
+    }
+
+        .car-info-item i {
+            width: 16px;
+            color: #ea001e;
+            margin-right: 5px;
+        }
+
+    .car-price {
+        font-size: 22px;
+        font-weight: 700;
+        color: #ea001e;
+        margin-bottom: 15px;
+    }
+
+        .car-price span {
+            font-size: 11px;
+            color: #8d99a6;
+            font-weight: 400;
+        }
+
+    .rent-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background: #ea001e;
+        color: #fff !important;
+        border-radius: 8px;
+        padding: 11px;
+        text-decoration: none !important;
+        font-weight: 600;
+        transition: .2s;
+    }
+
+        .rent-btn:hover {
+            background: #bd0018;
+        }
+
+    .empty-box {
+        background: #fff;
+        border-radius: 14px;
+        padding: 45px 20px;
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(0,0,0,.05);
+    }
+
+        .empty-box i {
+            font-size: 45px;
+            color: #ea001e;
+            margin-bottom: 15px;
+        }
+</style>
+
+
+<div class="available-page">
+
+    <div class="container">
+
+
+        <div class="available-title">
+
+            <h2>
+                Seçilen Tarihlerde Müsait Araçlar
+            </h2>
+
+            <p>
+                Rezervasyon kriterlerinize uygun
+                araçları aşağıdan inceleyebilirsiniz.
+            </p>
+
+        </div>
+
+
+        <div class="search-summary">
+
+            <div class="row g-3">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="summary-box">
+
+                        <i class="fas fa-plane-departure"></i>
+
+                        <div>
+
+                            <strong>
+                                Alış Lokasyonu
+                            </strong>
+
+                            <div>
+                                @ViewBag.PickUpLocation
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="summary-box">
+
+                        <i class="fas fa-plane-arrival"></i>
+
+                        <div>
+
+                            <strong>
+                                Teslim Lokasyonu
+                            </strong>
+
+                            <div>
+                                @ViewBag.DropOffLocation
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="summary-box">
+
+                        <i class="fas fa-calendar-alt"></i>
+
+                        <div>
+
+                            <strong>
+                                Alış Tarihi
+                            </strong>
+
+                            <div>
+                                @(((DateTime)ViewBag.PickUpDate)
+                                                                .ToString("dd.MM.yyyy HH:mm"))
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="summary-box">
+
+                        <i class="fas fa-calendar-check"></i>
+
+                        <div>
+
+                            <strong>
+                                Teslim Tarihi
+                            </strong>
+
+                            <div>
+                                @(((DateTime)ViewBag.DropOffDate)
+                                                                .ToString("dd.MM.yyyy HH:mm"))
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="row g-4">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-xl-4 col-lg-6">
+
+                        <div class="car-card">
+
+                            <div class="car-image">
+
+                                @if (!string.IsNullOrWhiteSpace(
+                                                        item.CarsImg))
+                                {
+                                    <img src="@item.CarsImg"
+                                         alt="@item.Brand @item.Model" />
+                                }
+                                else
+                                {
+                                    <div class="
+                                                    h-100
+                                                    d-flex
+                                                    align-items-center
+                                                    justify-content-center">
+
+                                        <i class="
+                                                        fas
+                                                        fa-car
+                                                        fa-4x
+                                                        text-secondary">
+                                        </i>
+
+                                    </div>
+                                }
+
+                            </div>
+
+
+                            <div class="car-body">
+
+                                <div class="car-title">
+                                    @item.Brand @item.Model
+                                </div>
+
+                                <div class="car-subtitle">
+                                    @item.Year Model
+                                </div>
+
+
+                                <div class="car-info-grid">
+
+                                    <div class="car-info-item">
+
+                                        <i class="fas fa-users"></i>
+
+                                        @item.Seat Kişilik
+
+                                    </div>
+
+
+                                    <div class="car-info-item">
+
+                                        <i class="fas fa-cog"></i>
+
+                                        @item.Transmission
+
+                                    </div>
+
+
+                                    <div class="car-info-item">
+
+                                        <i class="fas fa-gas-pump"></i>
+
+                                        @item.Fuel
+
+                                    </div>
+
+
+                                    <div class="car-info-item">
+
+                                        <i class="fas fa-calendar"></i>
+
+                                        @item.Year
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="car-price">
+
+                                    @item.Price.ToString("N2") ₺
+
+                                    <span>
+                                        / Gün
+                                    </span>
+
+                                </div>
+
+
+                                <a asp-controller="Booking"
+                                   asp-action="CreateBooking"
+                                   asp-route-carId="@item.CarsId"
+                                   asp-route-pickUpLocation="@ViewBag.PickUpLocation"
+                                   asp-route-dropOffLocation="@ViewBag.DropOffLocation"
+                                   asp-route-pickUpDate="@(((DateTime)ViewBag.PickUpDate).ToString("yyyy-MM-ddTHH:mm"))"
+                                   asp-route-dropOffDate="@(((DateTime)ViewBag.DropOffDate).ToString("yyyy-MM-ddTHH:mm"))"
+                                   class="rent-btn">
+
+                                    <i class="fas fa-check me-1"></i>
+
+                                    Bu Aracı Seç
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="empty-box">
+
+                <i class="fas fa-car"></i>
+
+                <h4>
+                    Uygun araç bulunamadı
+                </h4>
+
+                <p class="text-muted mb-0">
+
+                    Seçtiğiniz tarih aralığında
+                    uygun araç bulunmamaktadır.
+                    Farklı tarihler deneyebilirsiniz.
+
+                </p>
+
+            </div>
+        }
+
+    </div>
+
+</div>

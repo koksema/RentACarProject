@@ -1,0 +1,1768 @@
+﻿@using CQRS_RentACar.ViewComponents
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="tr">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Rent A Car</title>
+
+    <meta name="keywords"
+          content="Araç Kiralama, Rent A Car" />
+
+    <meta name="description"
+          content="Rent A Car araç kiralama sistemi" />
+
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin />
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Montserrat:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet" />
+
+
+    <!-- ICONS -->
+
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+
+
+    <!-- LIBRARIES -->
+
+    <link href="/Cental-1.0.0/lib/animate/animate.min.css"
+          rel="stylesheet" />
+
+    <link href="/Cental-1.0.0/lib/owlcarousel/assets/owl.carousel.min.css"
+          rel="stylesheet" />
+
+
+    <!-- BOOTSTRAP -->
+
+    <link href="/Cental-1.0.0/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+
+    <!-- TEMPLATE CSS -->
+
+    <link href="/Cental-1.0.0/css/style.css"
+          rel="stylesheet" />
+    <style>
+
+        /* =====================================================
+               ARAÇ KARTLARI
+               ===================================================== */
+
+        .categories .categories-item {
+            height: 100% !important;
+        }
+
+            .categories .categories-item .categories-item-inner {
+                height: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            /* TÜM ARAÇ RESİMLERİ AYNI YÜKSEKLİK */
+            .categories .categories-item .categories-img {
+                width: 100% !important;
+                height: 250px !important;
+                min-height: 250px !important;
+                max-height: 250px !important;
+                overflow: hidden !important;
+                flex: 0 0 250px !important;
+                background: #f5f5f5 !important;
+            }
+
+                .categories .categories-item .categories-img img {
+                    width: 100% !important;
+                    height: 250px !important;
+                    min-height: 250px !important;
+                    max-height: 250px !important;
+                    object-fit: cover !important;
+                    object-position: center center !important;
+                    display: block !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+        /* ARAÇ ALT BİLGİ ALANI */
+        .categories .categories-content {
+            flex: 1 !important;
+            min-height: 315px !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        /*
+               Owl carousel bazen kart yüksekliklerini
+               kendi hesaplıyor. Bunu eşitliyoruz.
+            */
+        .categories-carousel .owl-stage {
+            display: flex !important;
+            align-items: stretch !important;
+        }
+
+        .categories-carousel .owl-item {
+            display: flex !important;
+            height: auto !important;
+        }
+
+            .categories-carousel .owl-item .categories-item {
+                width: 100% !important;
+            }
+
+
+        /* =====================================================
+               PERSONEL KARTLARI
+               ===================================================== */
+
+        .team .row {
+            align-items: stretch !important;
+        }
+
+            .team .row > div {
+                display: flex !important;
+            }
+
+        .team .team-item {
+            width: 100% !important;
+            /*
+                  Temanın mevcut -100px fotoğraf
+                  yapısını koruyoruz.
+                */
+            height: calc(100% - 100px) !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+            /* TÜM PERSONEL RESİMLERİ AYNI BOY */
+            .team .team-item .team-img {
+                width: 100% !important;
+                height: 300px !important;
+                min-height: 300px !important;
+                max-height: 300px !important;
+                flex: 0 0 300px !important;
+                overflow: hidden !important;
+            }
+
+                .team .team-item .team-img img {
+                    width: 100% !important;
+                    height: 300px !important;
+                    min-height: 300px !important;
+                    max-height: 300px !important;
+                    object-fit: cover !important;
+                    /*
+                   Yüzlerin ortada kalması için
+                */
+                    object-position: center 25% !important;
+                    display: block !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+
+            /* PERSONELİN ALT YAZI ALANI */
+            .team .team-item .team-content {
+                min-height: 175px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                flex: 1 !important;
+            }
+
+
+        /* =====================================================
+               TABLET
+               ===================================================== */
+
+        @@media (max-width: 991px) {
+
+            .categories .categories-item .categories-img,
+            .categories .categories-item .categories-img img {
+                height: 230px !important;
+                min-height: 230px !important;
+                max-height: 230px !important;
+            }
+
+            .categories .categories-item .categories-img {
+                flex-basis: 230px !important;
+            }
+
+            .team .team-item .team-img,
+            .team .team-item .team-img img {
+                height: 270px !important;
+                min-height: 270px !important;
+                max-height: 270px !important;
+            }
+
+            .team .team-item .team-img {
+                flex-basis: 270px !important;
+            }
+        }
+
+
+        /* =====================================================
+               TELEFON
+               ===================================================== */
+
+        @@media (max-width: 576px) {
+
+            .categories .categories-item .categories-img,
+            .categories .categories-item .categories-img img {
+                height: 220px !important;
+                min-height: 220px !important;
+                max-height: 220px !important;
+            }
+
+            .team .team-item .team-img,
+            .team .team-item .team-img img {
+                height: 250px !important;
+                min-height: 250px !important;
+                max-height: 250px !important;
+            }
+        }
+
+    </style>
+
+    <style>
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+        }
+
+        /*
+            Ana sayfanın ASP.NET varsayılan
+            container yapısı tarafından
+            daraltılmasını engeller.
+        */
+
+        .page-wrapper {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /*
+            HERO / SLIDER
+        */
+
+        .header-carousel,
+        .header-carousel .owl-stage-outer,
+        .header-carousel .owl-stage,
+        .header-carousel .owl-item {
+            width: 100%;
+        }
+
+        /*
+            Slider'ın görsel yüksekliği
+        */
+
+        .header-carousel .carousel-item {
+            min-height: 620px;
+        }
+
+        .header-carousel .carousel-item img {
+            width: 100%;
+            min-height: 620px;
+            object-fit: cover;
+        }
+
+
+        /*
+            ADIMLAR BÖLÜMÜ
+        */
+
+        .steps-title {
+            max-width: 760px;
+        }
+
+        .steps-title h1 {
+            font-weight: 700;
+        }
+
+
+        /*
+            İLETİŞİM BÖLÜMÜ
+        */
+
+        .contact-section {
+            background: #f7f8fb;
+        }
+
+        .contact-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, .06);
+        }
+
+        .contact-card h2 {
+            color: #1f2d3d;
+            font-weight: 700;
+        }
+
+        .contact-card p {
+            color: #8592a3;
+        }
+
+        .contact-card .form-control {
+            min-height: 50px;
+            border-radius: 8px;
+            border: 1px solid #e1e5ea;
+        }
+
+        .contact-card textarea.form-control {
+            min-height: 140px;
+        }
+
+        .contact-card .form-control:focus {
+            border-color: #ea001e;
+            box-shadow:
+                0 0 0 .15rem rgba(234, 0, 30, .08);
+        }
+
+
+        @@media(max-width: 991px) {
+
+            .header-carousel .carousel-item,
+            .header-carousel .carousel-item img {
+                min-height: 500px;
+            }
+
+        }
+
+
+        @@media(max-width: 767px) {
+
+            .header-carousel .carousel-item,
+            .header-carousel .carousel-item img {
+                min-height: 420px;
+            }
+
+            .contact-card {
+                padding: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         LOADING
+         ===================================================== -->
+
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+
+        <div class="spinner-border text-primary"
+             style="width:3rem; height:3rem;"
+             role="status">
+
+            <span class="visually-hidden">
+                Yükleniyor...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="page-wrapper">
+
+
+        <!-- =====================================================
+             TOPBAR
+             ===================================================== -->
+
+        <div class="container-fluid topbar bg-secondary d-none d-xl-block w-100">
+
+            <div class="container-fluid px-5">
+
+                <div class="row gx-0 align-items-center"
+                     style="height:45px;">
+
+
+                    <div class="col-lg-6 text-center text-lg-start">
+
+                        <div class="d-flex flex-wrap">
+
+                            <a href="#"
+                               class="text-muted me-4">
+
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+
+                                Bizi Bulun
+
+                            </a>
+
+
+                            <a href="tel:+905000000000"
+                               class="text-muted me-4">
+
+                                <i class="fas fa-phone-alt text-primary me-2"></i>
+
+                                +90 500 000 00 00
+
+                            </a>
+
+
+                            <a href="mailto:info@rentacar.com"
+                               class="text-muted">
+
+                                <i class="fas fa-envelope text-primary me-2"></i>
+
+                                info@rentacar.com
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-6 text-center text-lg-end">
+
+                        <div class="d-flex align-items-center justify-content-end">
+
+                            <a href="#"
+                               class="btn btn-light btn-sm-square rounded-circle me-3">
+
+                                <i class="fab fa-facebook-f"></i>
+
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-light btn-sm-square rounded-circle me-3">
+
+                                <i class="fab fa-twitter"></i>
+
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-light btn-sm-square rounded-circle me-3">
+
+                                <i class="fab fa-instagram"></i>
+
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-light btn-sm-square rounded-circle">
+
+                                <i class="fab fa-linkedin-in"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             NAVBAR
+             ===================================================== -->
+
+        @await Component.InvokeAsync("Navbar")
+
+
+        <!-- =====================================================
+             SLIDER
+             ===================================================== -->
+
+        @await Component.InvokeAsync("Slider")
+
+
+        <!-- =====================================================
+             FEATURES
+             ===================================================== -->
+
+        @await Component.InvokeAsync("Features")
+
+
+        <!-- =====================================================
+             ABOUT
+             ===================================================== -->
+
+        @await Component.InvokeAsync("About")
+
+
+        <!-- =====================================================
+             SERVICES
+             ===================================================== -->
+
+        @await Component.InvokeAsync("Services")
+
+
+        <!-- =====================================================
+             CARS
+             ===================================================== -->
+
+        @await Component.InvokeAsync("Cars")
+
+
+        <!-- =====================================================
+             NASIL ÇALIŞIR?
+             ===================================================== -->
+
+        <div class="container-fluid steps py-5">
+
+            <div class="container py-5">
+
+
+                <div class="text-center mx-auto pb-5 steps-title wow fadeInUp"
+                     data-wow-delay="0.1s">
+
+                    <h1 class="display-5 text-capitalize text-white mb-3">
+
+                        Araç Kiralama
+
+                        <span class="text-primary">
+                            Süreci
+                        </span>
+
+                    </h1>
+
+                    <p class="mb-0 text-white">
+
+                        İhtiyacınıza uygun aracı seçin,
+                        rezervasyon bilgilerinizi oluşturun ve
+                        yolculuğun keyfini çıkarın.
+
+                    </p>
+
+                </div>
+
+
+                <div class="row g-4">
+
+
+                    <div class="col-lg-4 wow fadeInUp"
+                         data-wow-delay="0.1s">
+
+                        <div class="steps-item p-4 mb-4">
+
+                            <h4>
+                                Rezervasyon Oluştur
+                            </h4>
+
+                            <p class="mb-0">
+
+                                Teslim alma ve bırakma
+                                bilgilerinizi belirleyerek
+                                rezervasyonunuzu oluşturun.
+
+                            </p>
+
+                            <div class="setps-number">
+                                01.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-4 wow fadeInUp"
+                         data-wow-delay="0.3s">
+
+                        <div class="steps-item p-4 mb-4">
+
+                            <h4>
+                                Aracınızı Seçin
+                            </h4>
+
+                            <p class="mb-0">
+
+                                Filomuzdaki araçlar arasından
+                                ihtiyaçlarınıza en uygun modeli
+                                seçin.
+
+                            </p>
+
+                            <div class="setps-number">
+                                02.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-4 wow fadeInUp"
+                         data-wow-delay="0.5s">
+
+                        <div class="steps-item p-4 mb-4">
+
+                            <h4>
+                                Yolculuğa Başlayın
+                            </h4>
+
+                            <p class="mb-0">
+
+                                Belirlediğiniz tarihte aracınızı
+                                teslim alın ve yolculuğunuzun
+                                keyfini çıkarın.
+
+                            </p>
+
+                            <div class="setps-number">
+                                03.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+        İLETİŞİM
+        ===================================================== -->
+
+        <section class="container-fluid contact-section py-5">
+
+            <div class="container py-4">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-xl-10">
+
+                        <div class="text-center mb-5">
+
+                            <h2>
+                                Bizimle İletişime Geçin
+                            </h2>
+
+                            <p>
+                                Görüş, öneri ve sorularınızı
+                                bizimle paylaşabilirsiniz.
+                            </p>
+
+                        </div>
+
+
+                        <div class="contact-card">
+
+                            <form id="contactForm">
+
+                                <div class="row g-3">
+
+                                    <!-- AD -->
+                                    <div class="col-md-6">
+
+                                        <input type="text"
+                                               name="Name"
+                                               class="form-control"
+                                               placeholder="Adınız"
+                                               required />
+
+                                    </div>
+
+
+                                    <!-- SOYAD -->
+                                    <div class="col-md-6">
+
+                                        <input type="text"
+                                               name="Surname"
+                                               class="form-control"
+                                               placeholder="Soyadınız"
+                                               required />
+
+                                    </div>
+
+
+                                    <!-- EMAIL -->
+                                    <div class="col-md-6">
+
+                                        <input type="email"
+                                               name="Email"
+                                               class="form-control"
+                                               placeholder="E-Posta Adresiniz"
+                                               required />
+
+                                    </div>
+
+
+                                    <!-- TELEFON -->
+                                    <div class="col-md-6">
+
+                                        <input type="tel"
+                                               name="Phone"
+                                               class="form-control"
+                                               placeholder="Telefon Numaranız"
+                                               required />
+
+                                    </div>
+
+
+                                    <!-- KONU -->
+                                    <div class="col-12">
+
+                                        <input type="text"
+                                               name="Subject"
+                                               class="form-control"
+                                               placeholder="Konu"
+                                               required />
+
+                                    </div>
+
+
+                                    <!-- MESAJ -->
+                                    <div class="col-12">
+
+                                        <textarea name="MessageDeatil"
+                                                  class="form-control"
+                                                  rows="5"
+                                                  placeholder="Mesajınız..."
+                                                  required></textarea>
+
+                                    </div>
+
+
+                                    <!-- BUTON -->
+                                    <div class="col-12">
+
+                                        <button type="submit"
+                                                id="contactSubmitButton"
+                                                class="btn btn-primary w-100 py-3">
+
+                                            <i class="fas fa-paper-plane me-2"></i>
+
+                                            Mesaj Gönder
+
+                                        </button>
+
+                                    </div>
+
+
+                                    <!-- ================================================= -->
+                                    <!-- AI CEVAP ALANI                                   -->
+                                    <!-- ================================================= -->
+
+                                    <div class="col-12">
+
+                                        <div id="contactResult"
+                                             class="d-none">
+
+                                            <div class="p-4 rounded"
+                                                 style="
+                                            background:#f7f9fc;
+                                            border:1px solid #e3e8ef;
+                                            margin-top:8px;
+                                         ">
+
+                                                <div class="d-flex align-items-center mb-3">
+
+                                                    <div style="
+                                                width:42px;
+                                                height:42px;
+                                                border-radius:50%;
+                                                background:#e8f3ff;
+                                                color:#1688e7;
+                                                display:flex;
+                                                align-items:center;
+                                                justify-content:center;
+                                                margin-right:12px;
+                                                flex-shrink:0;
+                                            ">
+
+                                                        <span style="
+                                                    font-size:13px;
+                                                    font-weight:800;
+                                                ">
+                                                            AI
+                                                        </span>
+
+                                                    </div>
+
+
+                                                    <div>
+
+                                                        <strong style="
+                                                    color:#1f2d3d;
+                                                    font-size:14px;
+                                                ">
+                                                            Otomatik Yanıt
+                                                        </strong>
+
+                                                        <div style="
+                                                    color:#8a97a5;
+                                                    font-size:11px;
+                                                    margin-top:2px;
+                                                ">
+                                                            Yapay zeka destekli
+                                                            müşteri asistanı
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div id="contactAiReply"
+                                                     style="
+                                                color:#536575;
+                                                font-size:13px;
+                                                line-height:1.8;
+                                                white-space:pre-line;
+                                             ">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             BAŞARI POPUP
+             ===================================================== -->
+
+        <div id="messageSuccessModal"
+             class="message-success-overlay">
+
+            <div class="message-success-card">
+
+                <div class="message-success-icon">
+
+                    <i class="fas fa-check"></i>
+
+                </div>
+
+
+                <h3>
+                    Mesajınız Alındı!
+                </h3>
+
+
+                <p>
+                    Mesajınız başarıyla bize ulaştı.
+                    Yapay zeka destekli asistanımız
+                    yanıtınızı hazırladı.
+                </p>
+
+
+                <button type="button"
+                        class="message-success-button"
+                        onclick="closeMessageSuccessModal()">
+
+                    Tamam
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             HATA POPUP
+             ===================================================== -->
+
+        <div id="messageErrorModal"
+             class="message-success-overlay">
+
+            <div class="message-success-card">
+
+                <div class="message-error-icon">
+
+                    <i class="fas fa-exclamation"></i>
+
+                </div>
+
+
+                <h3>
+                    Mesaj Gönderilemedi
+                </h3>
+
+
+                <p id="messageErrorText">
+                    İşlem sırasında bir hata oluştu.
+                </p>
+
+
+                <button type="button"
+                        class="message-error-button"
+                        onclick="closeMessageErrorModal()">
+
+                    Kapat
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <style>
+
+            /* =====================================================
+                   POPUP GENEL
+                   ===================================================== */
+
+            .message-success-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(17, 31, 48, .58);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                z-index: 99999;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity .25s ease, visibility .25s ease;
+            }
+
+
+                .message-success-overlay.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+
+            .message-success-card {
+                width: 100%;
+                max-width: 410px;
+                background: #ffffff;
+                border-radius: 18px;
+                padding: 36px 32px 30px;
+                text-align: center;
+                box-shadow: 0 25px 70px rgba(0, 0, 0, .20);
+                transform: translateY(15px) scale(.96);
+                transition: transform .25s ease;
+            }
+
+
+            .message-success-overlay.show
+            .message-success-card {
+                transform: translateY(0) scale(1);
+            }
+
+
+            /* =====================================================
+                   BAŞARI İKONU
+                   ===================================================== */
+
+            .message-success-icon {
+                width: 72px;
+                height: 72px;
+                margin: 0 auto 20px;
+                border-radius: 50%;
+                background: #e7f8ef;
+                color: #20b66c;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 29px;
+                box-shadow: 0 8px 22px rgba(32, 182, 108, .15);
+            }
+
+
+            /* =====================================================
+                   HATA İKONU
+                   ===================================================== */
+
+            .message-error-icon {
+                width: 72px;
+                height: 72px;
+                margin: 0 auto 20px;
+                border-radius: 50%;
+                background: #fff0f1;
+                color: #ea001e;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 29px;
+                box-shadow: 0 8px 22px rgba(234, 0, 30, .12);
+            }
+
+
+            /* =====================================================
+                   POPUP YAZILARI
+                   ===================================================== */
+
+            .message-success-card h3 {
+                margin: 0 0 10px;
+                color: #17283a;
+                font-size: 22px;
+                font-weight: 700;
+            }
+
+
+            .message-success-card p {
+                color: #788796;
+                font-size: 13px;
+                line-height: 1.7;
+                margin-bottom: 25px;
+            }
+
+
+            /* =====================================================
+                   BAŞARI BUTONU
+                   ===================================================== */
+
+            .message-success-button {
+                width: 100%;
+                border: none;
+                border-radius: 9px;
+                padding: 12px;
+                background: #ea001e;
+                color: #ffffff;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: .2s ease;
+            }
+
+
+                .message-success-button:hover {
+                    background: #c8001a;
+                    box-shadow: 0 8px 20px rgba(234, 0, 30, .20);
+                    transform: translateY(-1px);
+                }
+
+
+            /* =====================================================
+                   HATA BUTONU
+                   ===================================================== */
+
+            .message-error-button {
+                width: 100%;
+                border: none;
+                border-radius: 9px;
+                padding: 12px;
+                background: #34495e;
+                color: #ffffff;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: .2s ease;
+            }
+
+
+                .message-error-button:hover {
+                    background: #263849;
+                }
+
+        </style>
+
+
+        <!-- ========================================================= -->
+        <!-- CONTACT FORM + GEMINI AI                                  -->
+        <!-- ========================================================= -->
+
+        <script>
+
+            document.addEventListener(
+                "DOMContentLoaded",
+                function () {
+
+                    const contactForm =
+                        document.getElementById(
+                            "contactForm"
+                        );
+
+
+                    const button =
+                        document.getElementById(
+                            "contactSubmitButton"
+                        );
+
+
+                    const resultBox =
+                        document.getElementById(
+                            "contactResult"
+                        );
+
+
+                    const aiReplyBox =
+                        document.getElementById(
+                            "contactAiReply"
+                        );
+
+
+                    if (!contactForm) {
+                        return;
+                    }
+
+
+                    contactForm.addEventListener(
+                        "submit",
+                        async function (event) {
+
+                            event.preventDefault();
+
+
+                            const formData =
+                                new FormData(
+                                    contactForm
+                                );
+
+
+                            // =========================================
+                            // LOADING
+                            // =========================================
+
+                            button.disabled =
+                                true;
+
+
+                            button.innerHTML =
+                                '<i class="fas fa-spinner fa-spin me-2"></i>' +
+                                'Mesaj Gönderiliyor...';
+
+
+                            resultBox.classList.add(
+                                "d-none"
+                            );
+
+
+                            aiReplyBox.textContent =
+                                "";
+
+
+                            try {
+
+                                // =====================================
+                                // CONTROLLER URL
+                                // =====================================
+
+                                const url =
+                                    '@Url.Action(
+                                                                                "CreateMessage",
+                                                                                "Message"
+                                                                        )';
+
+
+                                // =====================================
+                                // FORM POST
+                                // =====================================
+
+                                const response =
+                                    await fetch(
+                                        url,
+                                        {
+                                            method:
+                                                "POST",
+
+                                            body:
+                                                formData
+                                        }
+                                    );
+
+
+                                // =====================================
+                                // RESPONSE TEXT
+                                // =====================================
+
+                                const responseText =
+                                    await response.text();
+
+
+                                console.log(
+                                    "MESSAGE RESPONSE:",
+                                    responseText
+                                );
+
+
+                                // =====================================
+                                // HTTP HATASI
+                                // =====================================
+
+                                if (!response.ok) {
+
+                                    throw new Error(
+                                        "HTTP " +
+                                        response.status
+                                    );
+
+                                }
+
+
+                                // =====================================
+                                // JSON PARSE
+                                // =====================================
+
+                                let data;
+
+
+                                try {
+
+                                    data =
+                                        JSON.parse(
+                                            responseText
+                                        );
+
+                                }
+                                catch {
+
+                                    throw new Error(
+                                        "Sunucudan geçerli bir cevap alınamadı."
+                                    );
+
+                                }
+
+
+                                // =====================================
+                                // BACKEND HATASI
+                                // =====================================
+
+                                if (!data.success) {
+
+                                    showMessageErrorModal(
+                                        data.message ||
+                                        "Mesaj gönderilemedi."
+                                    );
+
+                                    return;
+                                }
+
+
+                                // =====================================
+                                // AI CEVABI
+                                // =====================================
+
+                                if (
+                                    data.aiSuccess === true
+                                    &&
+                                    data.aiReply
+                                ) {
+
+                                    aiReplyBox.textContent =
+                                        data.aiReply;
+
+                                }
+                                else {
+
+                                    aiReplyBox.textContent =
+                                        data.warning ||
+                                        data.message ||
+                                        "Mesajınız başarıyla alındı.";
+
+                                }
+
+
+                                // =====================================
+                                // AI CEVAP KUTUSU
+                                // =====================================
+
+                                resultBox.classList.remove(
+                                    "d-none"
+                                );
+
+
+                                // =====================================
+                                // BAŞARI POPUP
+                                // =====================================
+
+                                showMessageSuccessModal();
+
+
+                                // =====================================
+                                // FORMU TEMİZLE
+                                // =====================================
+
+                                contactForm.reset();
+
+                            }
+                            catch (error) {
+
+                                console.error(
+                                    "MESSAGE ERROR:",
+                                    error
+                                );
+
+
+                                showMessageErrorModal(
+                                    "Bağlantı sırasında bir hata oluştu: " +
+                                    error.message
+                                );
+
+                            }
+                            finally {
+
+                                // =====================================
+                                // BUTONU NORMAL HALE GETİR
+                                // =====================================
+
+                                button.disabled =
+                                    false;
+
+
+                                button.innerHTML =
+                                    '<i class="fas fa-paper-plane me-2"></i>' +
+                                    'Mesaj Gönder';
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+            // =========================================================
+            // BAŞARI POPUP AÇ
+            // =========================================================
+
+            function showMessageSuccessModal() {
+
+                const modal =
+                    document.getElementById(
+                        "messageSuccessModal"
+                    );
+
+
+                if (modal) {
+
+                    modal.classList.add(
+                        "show"
+                    );
+
+                }
+            }
+
+
+            // =========================================================
+            // BAŞARI POPUP KAPAT
+            // =========================================================
+
+            function closeMessageSuccessModal() {
+
+                const modal =
+                    document.getElementById(
+                        "messageSuccessModal"
+                    );
+
+
+                if (modal) {
+
+                    modal.classList.remove(
+                        "show"
+                    );
+
+                }
+
+
+                const resultBox =
+                    document.getElementById(
+                        "contactResult"
+                    );
+
+
+                if (resultBox) {
+
+                    resultBox.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                }
+            }
+
+
+            // =========================================================
+            // HATA POPUP AÇ
+            // =========================================================
+
+            function showMessageErrorModal(message) {
+
+                const modal =
+                    document.getElementById(
+                        "messageErrorModal"
+                    );
+
+
+                const text =
+                    document.getElementById(
+                        "messageErrorText"
+                    );
+
+
+                if (text) {
+
+                    text.textContent =
+                        message;
+
+                }
+
+
+                if (modal) {
+
+                    modal.classList.add(
+                        "show"
+                    );
+
+                }
+            }
+
+
+            // =========================================================
+            // HATA POPUP KAPAT
+            // =========================================================
+
+            function closeMessageErrorModal() {
+
+                const modal =
+                    document.getElementById(
+                        "messageErrorModal"
+                    );
+
+
+                if (modal) {
+
+                    modal.classList.remove(
+                        "show"
+                    );
+
+                }
+            }
+
+        </script>
+        <!-- =====================================================
+             EMPLOYEES
+             ===================================================== -->
+
+        @await Component.InvokeAsync("Employees")
+
+
+        <!-- =====================================================
+             TESTIMONIAL
+             ===================================================== -->
+
+        @await Component.InvokeAsync("Testimonial")
+
+
+        <!-- =====================================================
+             COPYRIGHT
+             ===================================================== -->
+
+        <div class="container-fluid copyright py-4">
+
+            <div class="container">
+
+                <div class="row g-4 align-items-center">
+
+
+                    <div class="col-md-6 text-center text-md-start">
+
+                        <span class="text-body">
+
+                            <span class="text-white">
+
+                                <i class="fas fa-copyright text-light me-2"></i>
+
+                                @DateTime.Now.Year Rent A Car
+
+                            </span>
+
+                            , Tüm hakları saklıdır.
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6 text-center text-md-end text-body">
+
+                        Araç Kiralama Sistemi
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACK TO TOP -->
+
+        <a href="#"
+           class="btn btn-secondary btn-lg-square rounded-circle back-to-top">
+
+            <i class="fa fa-arrow-up"></i>
+
+        </a>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/Cental-1.0.0/lib/wow/wow.min.js"></script>
+
+    <script src="/Cental-1.0.0/lib/easing/easing.min.js"></script>
+
+    <script src="/Cental-1.0.0/lib/waypoints/waypoints.min.js"></script>
+
+    <script src="/Cental-1.0.0/lib/counterup/counterup.min.js"></script>
+
+    <script src="/Cental-1.0.0/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- TEMPLATE JS -->
+
+    <script src="/Cental-1.0.0/js/main.js"></script>
+
+
+    <!-- =====================================================
+         SLIDER OTOMATİK GEÇİŞİNİ DURDUR
+         ===================================================== -->
+
+    <script>
+
+        $(document).ready(function () {
+
+            /*
+                main.js carousel'i başlattıktan sonra
+                autoplay özelliğini durduruyoruz.
+
+                Bundan sonra slider yalnızca kullanıcı
+                sağ/sol butonlara bastığında değişir.
+            */
+
+            if ($('.header-carousel').length) {
+
+                $('.header-carousel')
+                    .trigger('stop.owl.autoplay');
+
+            }
+
+        });
+
+    </script>
+
+
+   
+
+
+    <!-- =====================================================
+         REZERVASYON FİYATI HESAPLAMA
+         ===================================================== -->
+
+    <script>
+
+        $(document).ready(function () {
+
+            $(
+                'select[name="CarId"], ' +
+                'input[name="PickUpDate"], ' +
+                'input[name="DropOffDate"], ' +
+                'select[name="PickUpLocation"], ' +
+                'input[name="DropOffLocation"]'
+            )
+            .on(
+                'change input',
+                function () {
+
+                    calculatePrice();
+
+                }
+            );
+
+
+            function calculatePrice() {
+
+                const carId =
+                    $('select[name="CarId"]').val();
+
+                const pickUpDate =
+                    $('input[name="PickUpDate"]').val();
+
+                const dropOffDate =
+                    $('input[name="DropOffDate"]').val();
+
+                const pickUpLoc =
+                    $('select[name="PickUpLocation"]').val()
+                    ||
+                    $('input[name="PickUpLocation"]').val();
+
+                const dropOffLoc =
+                    $('input[name="DropOffLocation"]').val();
+
+
+                if (
+                    carId &&
+                    pickUpDate &&
+                    dropOffDate
+                ) {
+
+                    $.ajax({
+
+                        url:
+                            '/Booking/CalculatePrice',
+
+                        type:
+                            'POST',
+
+                        data: {
+
+                            carId:
+                                carId,
+
+                            pickUpDate:
+                                pickUpDate,
+
+                            dropOffDate:
+                                dropOffDate,
+
+                            pickUpLocation:
+                                pickUpLoc,
+
+                            dropOffLocation:
+                                dropOffLoc
+
+                        },
+
+                        success:
+                            function (response) {
+
+                                if (
+                                    response.success
+                                ) {
+
+                                    $('#totalDays')
+                                        .text(
+                                            response.days +
+                                            " Gün"
+                                        );
+
+                                    $('#totalPrice')
+                                        .text(
+                                            "₺" +
+                                            Number(
+                                                response.totalPrice
+                                            )
+                                            .toLocaleString(
+                                                'tr-TR'
+                                            )
+                                        );
+
+
+                                    if (
+                                        response.differentLocationFee >
+                                        0
+                                    ) {
+
+                                        $('#locationFeeNotice')
+                                            .text(
+                                                "+ ₺" +
+                                                Number(
+                                                    response
+                                                        .differentLocationFee
+                                                )
+                                                .toLocaleString(
+                                                    'tr-TR'
+                                                ) +
+                                                " farklı lokasyon teslim ücreti dahil"
+                                            );
+
+                                    }
+                                    else {
+
+                                        $('#locationFeeNotice')
+                                            .text("");
+
+                                    }
+
+
+                                    $('#priceCalculationBox')
+                                        .removeClass(
+                                            'd-none'
+                                        );
+
+                                }
+
+                            }
+
+                    });
+
+                }
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

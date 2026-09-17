@@ -1,0 +1,585 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <meta name="viewport"
+          content="initial-scale=1, maximum-scale=1">
+
+    <title>
+        @ViewData["Title"] - Rent A Car Admin
+    </title>
+
+    <!-- site icon -->
+    <link rel="icon"
+          href="/pluto-1.0.0/images/fevicon.png"
+          type="image/png" />
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet"
+          href="/pluto-1.0.0/css/bootstrap.min.css" />
+
+    <!-- site css -->
+    <link rel="stylesheet"
+          href="/pluto-1.0.0/style.css" />
+
+    <!-- responsive css -->
+    <link rel="stylesheet"
+          href="/pluto-1.0.0/css/responsive.css" />
+
+    <!-- custom css -->
+    <link rel="stylesheet"
+          href="/pluto-1.0.0/css/custom.css" />
+
+</head>
+
+
+<body class="dashboard dashboard_1">
+
+    <div class="full_container">
+
+        <div class="inner_container">
+
+
+            <!-- ============================= -->
+            <!-- SIDEBAR -->
+            <!-- ============================= -->
+
+            <nav id="sidebar">
+
+                <div class="sidebar_blog_1">
+
+                    <div class="sidebar-header">
+
+                        <div class="logo_section">
+
+                            <a asp-controller="Dashboard"
+                               asp-action="Index">
+
+                                <img class="logo_icon img-responsive"
+                                     src="/pluto-1.0.0/images/logo/logo_icon.png"
+                                     alt="Rent A Car" />
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="sidebar_blog_2">
+
+                    <ul class="list-unstyled components">
+
+
+                        <!-- DASHBOARD -->
+
+                        <li>
+
+                            <a asp-controller="Dashboard"
+                               asp-action="Index">
+
+                                <i class="fa fa-dashboard yellow_color"></i>
+
+                                <span>
+                                    Dashboard
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- ARAÇLAR -->
+
+                        <li>
+
+                            <a href="#carMenu"
+                               data-toggle="collapse"
+                               aria-expanded="false"
+                               class="dropdown-toggle">
+
+                                <i class="fa fa-car orange_color"></i>
+
+                                <span>
+                                    Araç Yönetimi
+                                </span>
+
+                            </a>
+
+
+                            <ul class="collapse list-unstyled"
+                                id="carMenu">
+
+                                <li>
+                                    <a href="#">
+                                        >
+                                        <span>
+                                            Araç Listesi
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        >
+                                        <span>
+                                            Yeni Araç Ekle
+                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                        <!-- AI ARAÇ ÖNERİ -->
+
+                        <li>
+
+                            <a asp-controller="Dashboard"
+                               asp-action="CarRecommendation">
+
+                                <i class="fa fa-magic purple_color"></i>
+
+                                <span>
+                                    AI Araç Öneri Asistanı
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- REZERVASYON -->
+
+                        <li>
+
+                            <a href="#reservationMenu"
+                               data-toggle="collapse"
+                               aria-expanded="false"
+                               class="dropdown-toggle">
+
+                                <i class="fa fa-calendar blue2_color"></i>
+
+                                <span>
+                                    Rezervasyonlar
+                                </span>
+
+                            </a>
+
+
+                            <ul class="collapse list-unstyled"
+                                id="reservationMenu">
+
+                                <li>
+                                    <a href="#">
+                                        >
+                                        <span>
+                                            Rezervasyon Listesi
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        >
+                                        <span>
+                                            Yeni Rezervasyon
+                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+                     
+
+
+                        <!-- LOKASYON -->
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa fa-map-marker green_color"></i>
+
+                                <span>
+                                    Lokasyonlar
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- MARKALAR -->
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa fa-tags purple_color2"></i>
+
+                                <span>
+                                    Markalar
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- HAKKIMIZDA -->
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa fa-info-circle blue1_color"></i>
+
+                                <span>
+                                    Hakkımızda
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- HİZMETLER -->
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa fa-cogs yellow_color"></i>
+
+                                <span>
+                                    Hizmetler
+                                </span>
+
+                            </a>
+
+                        </li>
+
+                        <!-- MESAJLAR -->
+                        <li>
+                            <a asp-controller="Message"
+                               asp-action="AllMessage">
+
+                                <i class="fa fa-envelope red_color"></i>
+
+                                <span>
+                                    Müşteri Mesajları
+                                </span>
+
+                            </a>
+                        </li>
+
+                        <!-- REFERANSLAR -->
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa fa-comments purple_color"></i>
+
+                                <span>
+                                    Referanslar
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- İLETİŞİM -->
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa fa-paper-plane red_color"></i>
+
+                                <span>
+                                    İletişim Bilgileri
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- AYARLAR -->
+
+                        <li>
+
+                            <a href="#">
+
+                                <i class="fa fa-cog yellow_color"></i>
+
+                                <span>
+                                    Ayarlar
+                                </span>
+
+                            </a>
+
+                        </li>
+
+
+                    </ul>
+
+                </div>
+
+            </nav>
+
+
+            <!-- ============================= -->
+            <!-- RIGHT CONTENT -->
+            <!-- ============================= -->
+
+            <div id="content">
+
+
+                <!-- TOPBAR -->
+
+                <div class="topbar">
+
+                    <nav class="navbar navbar-expand-lg navbar-light">
+
+                        <div class="full">
+
+
+                            <button type="button"
+                                    id="sidebarCollapse"
+                                    class="sidebar_toggle">
+
+                                <i class="fa fa-bars"></i>
+
+                            </button>
+
+
+                            <div class="logo_section">
+
+                                <a asp-controller="Dashboard"
+                                   asp-action="Index">
+
+                                    <img class="img-responsive"
+                                         src="/pluto-1.0.0/images/logo/logo.png"
+                                         alt="Rent A Car" />
+
+                                </a>
+
+                            </div>
+
+
+                            <div class="right_topbar">
+
+                                <div class="icon_info">
+
+
+                                    <ul>
+
+                                        <li>
+
+                                            <a href="#">
+
+                                                <i class="fa fa-bell-o"></i>
+
+                                                <span class="badge">
+                                                    2
+                                                </span>
+
+                                            </a>
+
+                                        </li>
+
+
+                                        <li>
+
+                                            <a href="#">
+
+                                                <i class="fa fa-question-circle"></i>
+
+                                            </a>
+
+                                        </li>
+
+
+                                        <li>
+
+                                            <a asp-controller="Message"
+                                               asp-action="AllMessage">
+
+                                                <i class="fa fa-envelope-o"></i>
+
+                                                <span class="badge">
+                                                    @ViewBag.TotalMessageCount
+                                                </span>
+
+                                            </a>
+
+                                        </li>
+
+                                    </ul>
+
+
+                                    <ul class="user_profile_dd">
+
+                                        <li>
+
+                                            <a class="dropdown-toggle"
+                                               data-toggle="dropdown">
+
+                                                <img class="img-responsive rounded-circle"
+                                                     src="/pluto-1.0.0/images/layout_img/user_img.jpg"
+                                                     alt="Admin" />
+
+                                                <span class="name_user">
+                                                    Admin
+                                                </span>
+
+                                            </a>
+
+
+                                            <div class="dropdown-menu">
+
+                                                <a class="dropdown-item"
+                                                   href="#">
+
+                                                    Profilim
+
+                                                </a>
+
+
+                                                <a class="dropdown-item"
+                                                   href="#">
+
+                                                    Ayarlar
+
+                                                </a>
+
+
+                                                <a class="dropdown-item"
+                                                   href="#">
+
+                                                    Yardım
+
+                                                </a>
+
+
+                                                <a class="dropdown-item"
+                                                   href="#">
+
+                                                    <span>
+                                                        Çıkış Yap
+                                                    </span>
+
+                                                    <i class="fa fa-sign-out"></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </nav>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- PAGE -->
+                <!-- ============================= -->
+                @RenderBody()
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- jQuery -->
+
+    <script src="/pluto-1.0.0/js/jquery.min.js"></script>
+
+    <script src="/pluto-1.0.0/js/popper.min.js"></script>
+
+    <script src="/pluto-1.0.0/js/bootstrap.min.js"></script>
+
+
+    <!-- wow animation -->
+
+    <script src="/pluto-1.0.0/js/animate.js"></script>
+
+
+    <!-- select country -->
+
+    <script src="/pluto-1.0.0/js/bootstrap-select.js"></script>
+
+
+    <!-- owl carousel -->
+
+    <script src="/pluto-1.0.0/js/owl.carousel.js"></script>
+
+
+    <!-- chart js -->
+
+    <script src="/pluto-1.0.0/js/Chart.min.js"></script>
+
+    <script src="/pluto-1.0.0/js/Chart.bundle.min.js"></script>
+
+    <script src="/pluto-1.0.0/js/utils.js"></script>
+
+    <script src="/pluto-1.0.0/js/analyser.js"></script>
+
+
+    <!-- nice scrollbar -->
+
+    <script src="/pluto-1.0.0/js/perfect-scrollbar.min.js"></script>
+
+
+    <script>
+
+        var ps = new PerfectScrollbar('#sidebar');
+
+    </script>
+
+
+    <!-- custom js -->
+
+    <script src="/pluto-1.0.0/js/custom.js"></script>
+
+    <script src="/pluto-1.0.0/js/chart_custom_style1.js"></script>
+
+
+    @await RenderSectionAsync(
+    "Scripts",
+        required: false
+        )
+
+</body>
+
+</html>

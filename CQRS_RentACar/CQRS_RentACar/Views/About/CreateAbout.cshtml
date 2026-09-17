@@ -1,0 +1,119 @@
+﻿@model CQRS_RentACar.CQRSPattern.Commands.AboutCommands.CreateAboutCommand
+
+@{
+    ViewData["Title"] = "Hakkımızda Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-10">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white border-0 pt-4 px-4">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="me-3"
+                             style="
+                                width:45px;
+                                height:45px;
+                                border-radius:10px;
+                                background:#eaf4ff;
+                                color:#1688e7;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                             ">
+
+                            <i class="fa fa-plus"></i>
+
+                        </div>
+
+                        <div>
+                            <h5 class="fw-bold mb-1">
+                                Yeni Hakkımızda İçeriği
+                            </h5>
+
+                            <small class="text-muted">
+                                Yeni bir hakkımızda başlığı ve açıklaması ekleyin.
+                            </small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body p-4">
+
+                    <form asp-controller="About"
+                          asp-action="CreateAbout"
+                          method="post">
+
+                        <div class="mb-4">
+
+                            <label asp-for="Title"
+                                   class="form-label fw-semibold">
+                                Başlık
+                            </label>
+
+                            <input asp-for="Title"
+                                   class="form-control"
+                                   placeholder="Hakkımızda başlığını giriniz..."
+                                   required />
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label asp-for="Description"
+                                   class="form-label fw-semibold">
+                                Açıklama
+                            </label>
+
+                            <textarea asp-for="Description"
+                                      class="form-control"
+                                      rows="8"
+                                      placeholder="Hakkımızda açıklamasını giriniz..."
+                                      required></textarea>
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a asp-controller="About"
+                               asp-action="AllAbouts"
+                               class="btn btn-outline-secondary">
+
+                                <i class="fa fa-arrow-left me-1"></i>
+                                Vazgeç
+
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fa fa-save me-1"></i>
+                                Kaydet
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

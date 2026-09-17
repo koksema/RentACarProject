@@ -1,0 +1,259 @@
+﻿@model CQRS_RentACar.CQRSPattern.Results.BookingResults.GetBookingByIdQueryResult
+
+@{
+    ViewData["Title"] = "Rezervasyon Sil";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .delete-booking-page {
+        background: #f6f8fb;
+        min-height: calc(100vh - 70px);
+        padding: 40px 20px;
+    }
+
+    .delete-booking-card {
+        max-width: 650px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 16px;
+        padding: 35px;
+        border: 1px solid #e7edf2;
+        box-shadow: 0 10px 35px rgba(20, 40, 60, .07);
+    }
+
+    .delete-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: #fff0f1;
+        color: #ea001e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 27px;
+    }
+
+    .delete-title {
+        text-align: center;
+        color: #183149;
+        font-size: 21px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .delete-description {
+        text-align: center;
+        color: #84919e;
+        font-size: 12px;
+        line-height: 1.7;
+        margin-bottom: 25px;
+    }
+
+    .booking-information {
+        background: #f8fafc;
+        border: 1px solid #e8edf2;
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    .booking-info-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 10px 0;
+        border-bottom: 1px solid #edf0f3;
+        font-size: 12px;
+    }
+
+        .booking-info-row:last-child {
+            border-bottom: none;
+        }
+
+    .booking-info-label {
+        color: #8a97a5;
+    }
+
+    .booking-info-value {
+        color: #273b4e;
+        font-weight: 600;
+        text-align: right;
+    }
+
+    .delete-warning {
+        background: #fff8e7;
+        border: 1px solid #ffe2a6;
+        color: #8c6515;
+        border-radius: 9px;
+        padding: 12px;
+        font-size: 11px;
+        margin-top: 20px;
+    }
+
+    .delete-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+        .delete-actions .btn {
+            flex: 1;
+            border-radius: 8px;
+            padding: 11px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+</style>
+
+
+<div class="delete-booking-page">
+
+    <div class="delete-booking-card">
+
+        <div class="delete-icon">
+            <i class="fa fa-trash"></i>
+        </div>
+
+
+        <h4 class="delete-title">
+            Rezervasyonu Sil
+        </h4>
+
+
+        <p class="delete-description">
+            Bu rezervasyonu sistemden silmek üzeresiniz.
+            İşlemi onaylamadan önce rezervasyon bilgilerini
+            kontrol edin.
+        </p>
+
+
+        <!-- BİLGİLER -->
+        <div class="booking-information">
+
+            <div class="booking-info-row">
+
+                <span class="booking-info-label">
+                    Rezervasyon
+                </span>
+
+                <span class="booking-info-value">
+                    #@Model.BookingId
+                </span>
+
+            </div>
+
+
+            <div class="booking-info-row">
+
+                <span class="booking-info-label">
+                    Araç
+                </span>
+
+                <span class="booking-info-value">
+                    @Model.CarBrand @Model.CarModel
+                </span>
+
+            </div>
+
+
+            <div class="booking-info-row">
+
+                <span class="booking-info-label">
+                    Alış Lokasyonu
+                </span>
+
+                <span class="booking-info-value">
+                    @Model.PickUpLocation
+                </span>
+
+            </div>
+
+
+            <div class="booking-info-row">
+
+                <span class="booking-info-label">
+                    Teslim Lokasyonu
+                </span>
+
+                <span class="booking-info-value">
+                    @Model.DropOffLocation
+                </span>
+
+            </div>
+
+
+            <div class="booking-info-row">
+
+                <span class="booking-info-label">
+                    Alış Tarihi
+                </span>
+
+                <span class="booking-info-value">
+                    @Model.PickUpDate.ToString("dd.MM.yyyy HH:mm")
+                </span>
+
+            </div>
+
+
+            <div class="booking-info-row">
+
+                <span class="booking-info-label">
+                    Teslim Tarihi
+                </span>
+
+                <span class="booking-info-value">
+                    @Model.DropOffDate.ToString("dd.MM.yyyy HH:mm")
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="delete-warning">
+
+            <i class="fa fa-exclamation-triangle me-1"></i>
+
+            Bu işlem rezervasyon kaydını sistemden silecektir.
+
+        </div>
+
+
+        <!-- BUTTONS -->
+        <div class="delete-actions">
+
+            <a asp-controller="Booking"
+               asp-action="AllBookings"
+               class="btn btn-outline-secondary">
+
+                <i class="fa fa-arrow-left me-1"></i>
+                Vazgeç
+
+            </a>
+
+
+            <form asp-controller="Booking"
+                  asp-action="DeleteBooking"
+                  method="post"
+                  style="flex:1;">
+
+                <input type="hidden"
+                       name="BookingId"
+                       value="@Model.BookingId" />
+
+                <button type="submit"
+                        class="btn btn-danger w-100">
+
+                    <i class="fa fa-trash me-1"></i>
+                    Rezervasyonu Sil
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

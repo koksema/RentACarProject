@@ -1,0 +1,183 @@
+﻿@model CQRS_RentACar.CQRSPattern.Results.EmployeesResults.GetEmployeesByIdQueryResult
+
+@{
+    ViewData["Title"] = "Personel Sil";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-7 col-lg-9">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-5 text-center">
+
+
+                    <!-- DELETE ICON -->
+                    <div style="
+                        width:75px;
+                        height:75px;
+                        margin:0 auto 20px;
+                        border-radius:50%;
+                        background:#fff0f1;
+                        color:#e63946;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:28px;
+                    ">
+
+                        <i class="fa fa-trash"></i>
+
+                    </div>
+
+
+                    <h4 class="fw-bold mb-2">
+                        Personeli Sil
+                    </h4>
+
+
+                    <p class="text-muted mb-4">
+                        Bu personeli sistemden silmek
+                        istediğinize emin misiniz?
+                    </p>
+
+
+                    <!-- PERSONEL CARD -->
+                    <div class="bg-light rounded p-4 mb-4">
+
+
+                        <!-- IMAGE -->
+                        @if (!string.IsNullOrWhiteSpace(Model.ImgUrl))
+                        {
+                            <div class="mb-3">
+
+                                <img src="@Model.ImgUrl"
+                                     alt="@Model.NameSurname"
+                                     style="
+                                            width:120px;
+                                            height:120px;
+                                            object-fit:cover;
+                                            border-radius:50%;
+                                            border:4px solid white;
+                                            box-shadow:0 5px 20px rgba(0,0,0,.08);
+                                         " />
+
+                            </div>
+                        }
+
+
+                        <!-- NAME -->
+                        <h5 class="fw-bold mb-2">
+
+                            @Model.NameSurname
+
+                        </h5>
+
+
+                        <!-- PROFESSION -->
+                        <span class="badge bg-primary px-3 py-2">
+
+                            @Model.Profession
+
+                        </span>
+
+
+                        <hr class="my-4" />
+
+
+                        <div class="row text-start">
+
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted d-block mb-1">
+                                    Personel ID
+                                </small>
+
+                                <strong>
+                                    #@Model.EmployeesId
+                                </strong>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted d-block mb-1">
+                                    Görev / Meslek
+                                </small>
+
+                                <strong>
+                                    @Model.Profession
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WARNING -->
+                    <div class="alert alert-warning text-start">
+
+                        <i class="fa fa-exclamation-triangle me-2"></i>
+
+                        <strong>Dikkat:</strong>
+
+                        Bu işlem geri alınamaz.
+                        Personel kaydı sistemden kalıcı olarak
+                        silinecektir.
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+
+
+                        <a asp-controller="Employees"
+                           asp-action="AllEmployees"
+                           class="btn btn-outline-secondary px-4">
+
+                            <i class="fa fa-arrow-left me-1"></i>
+                            Vazgeç
+
+                        </a>
+
+
+                        <form asp-controller="Employees"
+                              asp-action="DeleteEmployeesConfirmed"
+                              method="post">
+
+
+                            <input type="hidden"
+                                   name="employeesId"
+                                   value="@Model.EmployeesId" />
+
+
+                            <button type="submit"
+                                    class="btn btn-danger px-4">
+
+                                <i class="fa fa-trash me-1"></i>
+                                Evet, Personeli Sil
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

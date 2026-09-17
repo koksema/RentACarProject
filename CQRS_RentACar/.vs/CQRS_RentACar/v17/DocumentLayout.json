@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\DELL\\source\\repos\\CQRS_RentACar\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{87D3CFBB-5B20-4502-9A92-B99E4588F528}|CQRS_RentACar\\CQRS_RentACar.csproj|c:\\users\\dell\\source\\repos\\cqrs_rentacar\\cqrs_rentacar\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{87D3CFBB-5B20-4502-9A92-B99E4588F528}|CQRS_RentACar\\CQRS_RentACar.csproj|solutionrelative:cqrs_rentacar\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87D3CFBB-5B20-4502-9A92-B99E4588F528}|CQRS_RentACar\\CQRS_RentACar.csproj|c:\\users\\dell\\source\\repos\\cqrs_rentacar\\cqrs_rentacar\\views\\default\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{87D3CFBB-5B20-4502-9A92-B99E4588F528}|CQRS_RentACar\\CQRS_RentACar.csproj|solutionrelative:cqrs_rentacar\\views\\default\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\CQRS_RentACar\\CQRS_RentACar\\Views\\Dashboard\\Index.cshtml",
+              "RelativeDocumentMoniker": "CQRS_RentACar\\Views\\Dashboard\\Index.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\source\\repos\\CQRS_RentACar\\CQRS_RentACar\\Views\\Dashboard\\Index.cshtml",
+              "RelativeToolTip": "CQRS_RentACar\\Views\\Dashboard\\Index.cshtml",
+              "ViewState": "AgIAAE8DAAAAAAAAAAAowGUDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-13T20:00:13.881Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\CQRS_RentACar\\CQRS_RentACar\\Views\\Default\\Index.cshtml",
+              "RelativeDocumentMoniker": "CQRS_RentACar\\Views\\Default\\Index.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\source\\repos\\CQRS_RentACar\\CQRS_RentACar\\Views\\Default\\Index.cshtml",
+              "RelativeToolTip": "CQRS_RentACar\\Views\\Default\\Index.cshtml",
+              "ViewState": "AgIAAJwEAAAAAAAAAAAqwKcEAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-13T18:42:05.279Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

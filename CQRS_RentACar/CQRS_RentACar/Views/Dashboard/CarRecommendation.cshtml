@@ -1,0 +1,1371 @@
+﻿@{
+    ViewData["Title"] = "AI Araç Öneri Asistanı";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .ai-page {
+        background: #f5f7fb;
+        min-height: calc(100vh - 70px);
+        padding: 28px;
+    }
+
+    .ai-hero {
+        background: linear-gradient( 120deg, #e8f7ff 0%, #f4f4ff 55%, #f8eaff 100% );
+        border: 1px solid #e3ebf3;
+        border-radius: 14px;
+        padding: 20px 26px;
+        margin-bottom: 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 7px 22px rgba(30, 60, 90, .05);
+    }
+
+    .ai-hero-left {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .ai-hero-icon {
+        width: 62px;
+        height: 62px;
+        border-radius: 16px;
+        background: rgba(255,255,255,.78);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #247fd7;
+        font-size: 28px;
+        box-shadow: 0 5px 15px rgba(38,112,175,.08);
+    }
+
+    .ai-hero h2 {
+        margin: 0;
+        color: #14283c;
+        font-size: 23px;
+        font-weight: 700;
+    }
+
+    .ai-hero p {
+        margin: 5px 0 0;
+        color: #748497;
+        font-size: 13px;
+    }
+
+    .ai-smart-box {
+        background: rgba(255,255,255,.92);
+        border: 1px solid #e1e6ec;
+        border-radius: 12px;
+        padding: 13px 17px;
+        min-width: 235px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 5px 16px rgba(20,40,60,.06);
+    }
+
+    .ai-smart-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #fff0d8;
+        color: #ff951f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 19px;
+    }
+
+    .ai-smart-box strong {
+        color: #26394d;
+        display: block;
+        font-size: 13px;
+    }
+
+    .ai-smart-box span {
+        color: #8b98a6;
+        font-size: 10px;
+    }
+
+    .ai-main-card {
+        background: #fff;
+        border: 1px solid #e8edf2;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(27,48,70,.05);
+    }
+
+    .ai-left {
+        padding: 24px;
+        border-right: 1px solid #edf0f4;
+        min-height: 535px;
+    }
+
+    .ai-right {
+        padding: 24px;
+        min-height: 535px;
+        background: #fcfdff;
+    }
+
+    .ai-section-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 24px;
+    }
+
+    .ai-section-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .ai-section-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #fff0e7;
+        color: #ff7a28;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .ai-section-title h4 {
+        color: #15283c;
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    .ai-section-title p {
+        color: #8e9aa7;
+        margin: 3px 0 0;
+        font-size: 11px;
+    }
+
+    .ai-mini-info {
+        background: #eaf6ff;
+        border: 1px solid #cde7fa;
+        color: #47708f;
+        border-radius: 9px;
+        padding: 10px 13px;
+        font-size: 10px;
+        max-width: 220px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+        .ai-mini-info i {
+            color: #1688e7;
+            font-size: 16px;
+        }
+
+    .ai-label {
+        color: #15283c;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .ai-textarea-wrap {
+        position: relative;
+    }
+
+    .ai-textarea {
+        min-height: 145px;
+        resize: vertical;
+        border: 1px solid #dce3ea;
+        border-radius: 10px;
+        padding: 14px 15px 32px;
+        color: #4d6275;
+        font-size: 12px;
+        width: 100%;
+        transition: .2s;
+        outline: none;
+    }
+
+        .ai-textarea:focus {
+            border-color: #1688e7;
+            box-shadow: 0 0 0 3px rgba(22,136,231,.08);
+        }
+
+        .ai-textarea::placeholder {
+            color: #a5afb9;
+        }
+
+    .ai-character-count {
+        position: absolute;
+        right: 12px;
+        bottom: 9px;
+        font-size: 10px;
+        color: #9aa6b2;
+    }
+
+    .ai-submit-btn {
+        border: none;
+        width: 100%;
+        border-radius: 8px;
+        background: linear-gradient( 90deg, #1184f3, #0789fa );
+        color: #fff;
+        padding: 12px;
+        margin-top: 16px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .2s;
+        box-shadow: 0 5px 13px rgba(15,133,240,.18);
+    }
+
+        .ai-submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 17px rgba(15,133,240,.23);
+        }
+
+        .ai-submit-btn:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+    .example-title {
+        margin-top: 22px;
+        margin-bottom: 11px;
+        font-size: 12px;
+        color: #26394b;
+        font-weight: 600;
+    }
+
+        .example-title i {
+            color: #ffae19;
+            margin-right: 5px;
+        }
+
+    .example-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+    }
+
+    .example-item {
+        border: 1px solid #e4e9ee;
+        background: #fafbfd;
+        border-radius: 9px;
+        padding: 11px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        cursor: pointer;
+        min-height: 62px;
+        transition: .2s;
+    }
+
+        .example-item:hover {
+            border-color: #bbdcf7;
+            background: #f4faff;
+            transform: translateY(-1px);
+        }
+
+    .example-circle {
+        min-width: 32px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .example-blue {
+        background: #e6f2ff;
+        color: #1d8aea;
+    }
+
+    .example-pink {
+        background: #ffeaf1;
+        color: #f13f77;
+    }
+
+    .example-green {
+        background: #e7f8ef;
+        color: #23b66e;
+    }
+
+    .example-purple {
+        background: #f0e8ff;
+        color: #8551da;
+    }
+
+    .example-item span {
+        color: #5a6c7c;
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    .initial-panel {
+        border: 1px solid #e3e9ef;
+        border-radius: 13px;
+        background: #fff;
+        min-height: 480px;
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .recommendation-intro {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .car-visual {
+        flex: 0 0 42%;
+        min-height: 210px;
+        border-radius: 18px;
+        background: radial-gradient( circle at center, #ffe4d2 0%, #fff3ea 48%, #ffffff 49% );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .car-visual i {
+            font-size: 95px;
+            color: #174a78;
+            filter: drop-shadow(0 10px 7px rgba(20,60,95,.13));
+        }
+
+    .intro-content {
+        flex: 1;
+    }
+
+        .intro-content h3 {
+            color: #162a3d;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 12px;
+        }
+
+        .intro-content p {
+            color: #728193;
+            font-size: 12px;
+            line-height: 1.7;
+            margin-bottom: 17px;
+        }
+
+    .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #586b7c;
+        font-size: 11px;
+        margin-bottom: 11px;
+    }
+
+    .feature-check {
+        width: 19px;
+        height: 19px;
+        background: #28c276;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+    }
+
+    .ai-tip {
+        margin-top: 25px;
+        background: linear-gradient( 90deg, #fff5e8, #fff0de );
+        border-radius: 10px;
+        padding: 13px 16px;
+        color: #68798a;
+        font-size: 11px;
+        display: flex;
+        gap: 11px;
+        align-items: flex-start;
+    }
+
+    .tip-star {
+        width: 33px;
+        height: 33px;
+        min-width: 33px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff991b;
+        font-size: 15px;
+    }
+
+    .ai-tip strong {
+        color: #ff7c22;
+    }
+
+    .loading-panel {
+        min-height: 480px;
+        border: 1px solid #e5ebf0;
+        border-radius: 13px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .ai-loader {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 4px solid #e7f1fa;
+        border-top-color: #1688e7;
+        margin: 0 auto 15px;
+        animation: aiSpin .8s linear infinite;
+    }
+
+    @@keyframes aiSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loading-panel h5 {
+        color: #173047;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .loading-panel p {
+        color: #8a98a5;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .result-panel {
+        border: 1px solid #e4eaf0;
+        background: #fff;
+        border-radius: 13px;
+        min-height: 480px;
+        overflow: hidden;
+    }
+
+    .result-header {
+        background: linear-gradient( 100deg, #eaf6ff, #f6eeff );
+        padding: 17px 20px;
+        border-bottom: 1px solid #e4eaf0;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+
+    .result-header-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: #fff;
+        color: #1986e3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+    }
+
+    .result-header h5 {
+        margin: 0;
+        color: #183149;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .result-header small {
+        color: #8b98a6;
+        font-size: 9px;
+    }
+
+    /* ÖNERİLEN ARAÇ KARTLARI */
+
+    .recommended-cars {
+        padding: 18px 18px 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 13px;
+    }
+
+    .recommended-car {
+        background: #fff;
+        border: 1px solid #e5eaf0;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: .2s;
+        box-shadow: 0 4px 14px rgba(20,40,60,.05);
+    }
+
+        .recommended-car:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(20,40,60,.10);
+        }
+
+    .recommended-car-image {
+        height: 125px;
+        background: #f5f8fb;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .recommended-car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .recommended-car-no-image {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1688e7;
+        font-size: 38px;
+        background: #edf6ff;
+    }
+
+    .recommended-car-body {
+        padding: 12px;
+    }
+
+    .recommended-car-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #15283c;
+        margin-bottom: 8px;
+    }
+
+    .recommended-car-info {
+        font-size: 9px;
+        color: #788899;
+        margin-bottom: 4px;
+    }
+
+        .recommended-car-info i {
+            width: 15px;
+            color: #1688e7;
+        }
+
+    .recommended-car-price {
+        margin-top: 9px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #1389e8;
+    }
+
+    /* AI CEVAP ALANI */
+
+    .ai-answer-wrapper {
+        padding: 18px;
+    }
+
+    .ai-answer-box {
+        background: linear-gradient( 135deg, #f8fbff, #fbf8ff );
+        border: 1px solid #e2eaf2;
+        border-radius: 12px;
+        padding: 18px;
+        color: #53677a;
+        font-size: 11px;
+        line-height: 1.85;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+        .ai-answer-box strong {
+            color: #15283c;
+            font-weight: 700;
+        }
+
+    .ai-answer-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #183149;
+        font-weight: 700;
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+        .ai-answer-title i {
+            color: #8e5de5;
+        }
+
+    .d-none {
+        display: none !important;
+    }
+
+    @@media(max-width: 1200px) {
+        .recommended-cars {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media(max-width: 991px) {
+        .ai-left {
+            border-right: none;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .recommendation-intro {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .car-visual {
+            width: 100%;
+        }
+
+        .feature-item {
+            justify-content: center;
+        }
+    }
+
+    @@media(max-width: 767px) {
+        .ai-page {
+            padding: 16px;
+        }
+
+        .ai-hero {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .ai-smart-box {
+            width: 100%;
+        }
+
+        .ai-section-header {
+            flex-direction: column;
+        }
+
+        .ai-mini-info {
+            max-width: none;
+            width: 100%;
+        }
+
+        .example-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+<div class="ai-page">
+
+    <!-- HERO -->
+
+    <div class="ai-hero">
+
+        <div class="ai-hero-left">
+
+            <div class="ai-hero-icon">
+                <span class="ai-text-logo">AI</span>
+            </div>
+
+            <div>
+                <h2>Yapay Zeka Araç Öneri Asistanı</h2>
+
+                <p>
+                    İhtiyaçlarınıza en uygun aracı bulmanız için
+                    yapay zeka destekli öneriler alın.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="ai-smart-box">
+
+            <div class="ai-smart-icon">
+                <i class="fa fa-bolt"></i>
+            </div>
+
+            <div>
+                <strong>Akıllı Öneriler</strong>
+                <span>Sizin için en uygun araçları bulur</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ANA KART -->
+
+    <div class="ai-main-card">
+
+        <div class="row no-gutters">
+
+            <!-- SOL TARAF -->
+
+            <div class="col-lg-6">
+
+                <div class="ai-left">
+
+                    <div class="ai-section-header">
+
+                        <div class="ai-section-title">
+
+                            <div class="ai-section-icon">
+                                <i class="fa fa-car"></i>
+                            </div>
+
+                            <div>
+                                <h4>Araç Arama</h4>
+
+                                <p>
+                                    Ne tür bir araç aradığınızı bize anlatın
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="ai-mini-info">
+
+                            <i class="fa fa-info-circle"></i>
+
+                            <span>
+                                Ne kadar detay verirseniz,
+                                daha isabetli sonuçlar alırsınız.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <label for="userPrompt"
+                           class="ai-label">
+                        Nasıl bir araç arıyorsunuz?
+                    </label>
+
+
+                    <div class="ai-textarea-wrap">
+
+                        <textarea id="userPrompt"
+                                  class="ai-textarea"
+                                  maxlength="500"
+                                  placeholder="Örn: 4 kişilik bir aileyiz, otomatik vites ve bagajı geniş ekonomik bir araç istiyoruz."></textarea>
+
+                        <span class="ai-character-count"
+                              id="charCount">
+                            0 / 500
+                        </span>
+
+                    </div>
+
+
+                    <button type="button"
+                            class="ai-submit-btn"
+                            id="btnGetRecommendation">
+
+                        <i class="fa fa-paper-plane"></i>
+                        &nbsp;
+                        Öneri Oluştur
+
+                    </button>
+
+
+                    <!-- ÖRNEK SORULAR -->
+
+                    <div class="example-title">
+
+                        <i class="fa fa-lightbulb-o"></i>
+                        Örnek Sorular
+
+                    </div>
+
+
+                    <div class="example-grid">
+
+                        <div class="example-item"
+                             data-prompt="4 kişilik bir aile için geniş, ekonomik ve konforlu bir araç önerir misin?">
+
+                            <div class="example-circle example-blue">
+                                <i class="fa fa-users"></i>
+                            </div>
+
+                            <span>
+                                4 kişilik bir aile için geniş ve
+                                ekonomik araç önerir misin?
+                            </span>
+
+                        </div>
+
+
+                        <div class="example-item"
+                             data-prompt="Uzun yol için konforlu, rahat ve düşük yakıt tüketimli bir araç istiyorum.">
+
+                            <div class="example-circle example-pink">
+                                <i class="fa fa-road"></i>
+                            </div>
+
+                            <span>
+                                Uzun yol için konforlu bir araç arıyorum.
+                            </span>
+
+                        </div>
+
+
+                        <div class="example-item"
+                             data-prompt="Yakıt tüketimi düşük ve ekonomik bir araç önerir misin?">
+
+                            <div class="example-circle example-green">
+                                <i class="fa fa-leaf"></i>
+                            </div>
+
+                            <span>
+                                Düşük yakıt tüketimli araç önerir misin?
+                            </span>
+
+                        </div>
+
+
+                        <div class="example-item"
+                             data-prompt="Otomatik vites, şehir içinde kullanıma uygun küçük ve pratik bir araç istiyorum.">
+
+                            <div class="example-circle example-purple">
+                                <i class="fa fa-cog"></i>
+                            </div>
+
+                            <span>
+                                Otomatik vites, küçük şehir aracı istiyorum.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SAĞ TARAF -->
+
+            <div class="col-lg-6">
+
+                <div class="ai-right">
+
+                    <!-- İLK DURUM -->
+
+                    <div id="initialState"
+                         class="initial-panel">
+
+                        <div class="recommendation-intro">
+
+                            <div class="car-visual">
+                                <i class="fa fa-car"></i>
+                            </div>
+
+                            <div class="intro-content">
+
+                                <h3>
+                                    Size Özel Araç Önerileri
+                                </h3>
+
+                                <p>
+                                    Yapay zeka asistanımız,
+                                    ihtiyaçlarınızı analiz ederek
+                                    filomuzdaki en uygun araçları
+                                    size önerecektir.
+                                </p>
+
+                                <div class="feature-item">
+
+                                    <span class="feature-check">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+
+                                    İhtiyaçlarınıza uygun araç önerileri
+
+                                </div>
+
+                                <div class="feature-item">
+
+                                    <span class="feature-check">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+
+                                    Yakıt tüketimi ve ekonomi analizi
+
+                                </div>
+
+                                <div class="feature-item">
+
+                                    <span class="feature-check">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+
+                                    Kapasite ve konfor değerlendirmesi
+
+                                </div>
+
+                                <div class="feature-item">
+
+                                    <span class="feature-check">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+
+                                    Mevcut filoya göre gerçek araç önerileri
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="ai-tip">
+
+                            <div class="tip-star">
+                                <i class="fa fa-star"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>İpucu:</strong>
+
+                                Yolcu sayısı, vites tercihi,
+                                kullanım amacınız ve bütçeniz
+                                hakkında detay vererek daha doğru
+                                sonuçlar alabilirsiniz.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LOADING -->
+
+                    <div id="loadingState"
+                         class="loading-panel d-none">
+
+                        <div>
+
+                            <div class="ai-loader"></div>
+
+                            <h5>
+                                En uygun araçlar hazırlanıyor
+                            </h5>
+
+                            <p>
+                                Gemini AI mevcut filonuzu analiz ediyor...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SONUÇ -->
+
+                    <div id="resultPanel"
+                         class="result-panel d-none">
+
+                        <div class="result-header">
+
+                            <div class="result-header-icon">
+                                <i class="fa fa-magic"></i>
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Yapay Zeka Araç Önerisi
+                                </h5>
+
+                                <small>
+                                    Gemini AI tarafından oluşturuldu
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div id="recommendedCars"
+                             class="recommended-cars">
+                        </div>
+
+
+                        <div class="ai-answer-wrapper">
+
+                            <div class="ai-answer-title">
+
+                                <i class="fa fa-commenting"></i>
+
+                                AI Değerlendirmesi
+
+                            </div>
+
+                            <div id="recommendationOutput"
+                                 class="ai-answer-box">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const userPrompt =
+                document.getElementById("userPrompt");
+
+            const charCount =
+                document.getElementById("charCount");
+
+            const button =
+                document.getElementById(
+                    "btnGetRecommendation"
+                );
+
+            const initialState =
+                document.getElementById(
+                    "initialState"
+                );
+
+            const loadingState =
+                document.getElementById(
+                    "loadingState"
+                );
+
+            const resultPanel =
+                document.getElementById(
+                    "resultPanel"
+                );
+
+            const recommendationOutput =
+                document.getElementById(
+                    "recommendationOutput"
+                );
+
+            const recommendedCars =
+                document.getElementById(
+                    "recommendedCars"
+                );
+
+
+            // KARAKTER SAYACI
+
+            userPrompt.addEventListener(
+                "input",
+                function () {
+
+                    charCount.textContent =
+                        userPrompt.value.length +
+                        " / 500";
+                }
+            );
+
+
+            // ÖRNEK SORULAR
+
+            document
+                .querySelectorAll(".example-item")
+                .forEach(function (item) {
+
+                    item.addEventListener(
+                        "click",
+                        function () {
+
+                            const prompt =
+                                this.getAttribute(
+                                    "data-prompt"
+                                );
+
+                            userPrompt.value =
+                                prompt;
+
+                            charCount.textContent =
+                                prompt.length +
+                                " / 500";
+
+                            userPrompt.focus();
+                        }
+                    );
+                });
+
+
+            // AI ÖNERİ
+
+            button.addEventListener(
+                "click",
+                async function () {
+
+                    const prompt =
+                        userPrompt.value.trim();
+
+                    if (!prompt) {
+
+                        alert(
+                            "Lütfen araç arama kriterlerinizi girin."
+                        );
+
+                        userPrompt.focus();
+
+                        return;
+                    }
+
+
+                    initialState.classList.add(
+                        "d-none"
+                    );
+
+                    resultPanel.classList.add(
+                        "d-none"
+                    );
+
+                    loadingState.classList.remove(
+                        "d-none"
+                    );
+
+                    recommendedCars.innerHTML = "";
+                    recommendationOutput.innerHTML = "";
+
+                    button.disabled = true;
+
+                    button.innerHTML =
+                        '<i class="fa fa-spinner fa-spin"></i>' +
+                        '&nbsp; Öneri Hazırlanıyor...';
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                '/Dashboard/GetCarRecommendation',
+                                {
+                                    method: 'POST',
+
+                                    headers: {
+                                        'Content-Type':
+                                            'application/x-www-form-urlencoded'
+                                    },
+
+                                    body:
+                                        'userPrompt=' +
+                                        encodeURIComponent(
+                                            prompt
+                                        )
+                                }
+                            );
+
+
+                        const data =
+                            await response.json();
+
+
+                        loadingState.classList.add(
+                            "d-none"
+                        );
+
+
+                        if (data.success) {
+
+                            // =====================================
+                            // ÖNERİLEN ARAÇ KARTLARI
+                            // =====================================
+
+                            if (
+                                data.selectedCars &&
+                                data.selectedCars.length > 0
+                            ) {
+
+                                data.selectedCars.forEach(
+                                    function (car) {
+
+                                        const imageHtml =
+                                            car.carsImg
+                                                ? `
+                                                    <img
+                                                        src="${car.carsImg}"
+                                                        alt="${car.brand} ${car.model}"
+                                                    />
+                                                  `
+                                                : `
+                                                    <div class="recommended-car-no-image">
+                                                        <i class="fa fa-car"></i>
+                                                    </div>
+                                                  `;
+
+
+                                        const card = `
+                                            <div class="recommended-car">
+
+                                                <div class="recommended-car-image">
+                                                    ${imageHtml}
+                                                </div>
+
+                                                <div class="recommended-car-body">
+
+                                                    <div class="recommended-car-title">
+                                                        ${car.brand} ${car.model}
+                                                    </div>
+
+                                                    <div class="recommended-car-info">
+                                                        <i class="fa fa-users"></i>
+                                                        ${car.seat} Kişilik
+                                                    </div>
+
+                                                    <div class="recommended-car-info">
+                                                        <i class="fa fa-cog"></i>
+                                                        ${car.transmission}
+                                                    </div>
+
+                                                    <div class="recommended-car-info">
+                                                        <i class="fa fa-tint"></i>
+                                                        ${car.fuel}
+                                                    </div>
+
+                                                    <div class="recommended-car-price">
+                                                        ${Number(car.price)
+                                                            .toLocaleString("tr-TR")} ₺
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        `;
+
+
+                                        recommendedCars
+                                            .insertAdjacentHTML(
+                                                "beforeend",
+                                                card
+                                            );
+                                    }
+                                );
+                            }
+
+
+                            // =====================================
+                            // AI METNİNİ FORMATLA
+                            // =====================================
+
+                            let formattedText =
+                                data.recommendation || "";
+
+
+                            // HTML güvenliği
+                            formattedText =
+                                formattedText
+                                    .replace(/&/g, "&amp;")
+                                    .replace(/</g, "&lt;")
+                                    .replace(/>/g, "&gt;");
+
+
+                            // **kalın yazı**
+                            formattedText =
+                                formattedText.replace(
+                                    /\*\*(.*?)\*\*/g,
+                                    "<strong>$1</strong>"
+                                );
+
+
+                            // Satır sonları
+                            formattedText =
+                                formattedText.replace(
+                                    /\n/g,
+                                    "<br>"
+                                );
+
+
+                            recommendationOutput.innerHTML =
+                                formattedText;
+
+
+                            resultPanel.classList.remove(
+                                "d-none"
+                            );
+
+                        }
+                        else {
+
+                            alert(
+                                data.message ||
+                                "Öneri alınırken bir sorun oluştu."
+                            );
+
+                            initialState.classList.remove(
+                                "d-none"
+                            );
+                        }
+
+                    }
+                    catch (error) {
+
+                        loadingState.classList.add(
+                            "d-none"
+                        );
+
+                        initialState.classList.remove(
+                            "d-none"
+                        );
+
+                        alert(
+                            "Bağlantı hatası: " +
+                            error.message
+                        );
+                    }
+                    finally {
+
+                        button.disabled = false;
+
+                        button.innerHTML =
+                            '<i class="fa fa-paper-plane"></i>' +
+                            '&nbsp; Öneri Oluştur';
+                    }
+
+                }
+            );
+
+
+            // CTRL + ENTER
+
+            userPrompt.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.ctrlKey &&
+                        event.key === "Enter"
+                    ) {
+                        button.click();
+                    }
+
+                }
+            );
+
+        }
+    );
+</script>

@@ -1,0 +1,227 @@
+﻿@model CQRS_RentACar.CQRSPattern.Commands.EmployeesCommands.CreateEmployeesCommand
+
+@{
+    ViewData["Title"] = "Yeni Personel Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-10">
+
+            <div class="card border-0 shadow-sm">
+
+                <!-- HEADER -->
+                <div class="card-header bg-white border-0 pt-4 px-4">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="me-3"
+                             style="
+                                width:48px;
+                                height:48px;
+                                border-radius:12px;
+                                background:#eaf4ff;
+                                color:#1688e7;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:19px;
+                             ">
+
+                            <i class="fa fa-user-plus"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h5 class="fw-bold mb-1">
+                                Yeni Personel Ekle
+                            </h5>
+
+                            <small class="text-muted">
+                                Ekibinize yeni bir personel ekleyebilirsiniz.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORM -->
+                <div class="card-body p-4">
+
+                    <form asp-controller="Employees"
+                          asp-action="CreateEmployees"
+                          method="post">
+
+                        <div class="row g-4">
+
+
+                            <!-- AD SOYAD -->
+                            <div class="col-12">
+
+                                <label asp-for="NameSurname"
+                                       class="form-label fw-semibold">
+
+                                    Ad Soyad
+
+                                </label>
+
+                                <input asp-for="NameSurname"
+                                       class="form-control"
+                                       placeholder="Örn: Ahmet Yılmaz"
+                                       required />
+
+                            </div>
+
+
+                            <!-- MESLEK -->
+                            <div class="col-12">
+
+                                <label asp-for="Profession"
+                                       class="form-label fw-semibold">
+
+                                    Görev / Meslek
+
+                                </label>
+
+                                <input asp-for="Profession"
+                                       class="form-control"
+                                       placeholder="Örn: Satış Danışmanı"
+                                       required />
+
+                            </div>
+
+
+                            <!-- RESİM -->
+                            <div class="col-12">
+
+                                <label asp-for="ImgUrl"
+                                       class="form-label fw-semibold">
+
+                                    Personel Görseli
+
+                                </label>
+
+                                <input asp-for="ImgUrl"
+                                       id="employeeImageUrl"
+                                       class="form-control"
+                                       placeholder="/images/team/personel.jpg" />
+
+                                <small class="text-muted">
+                                    Personel fotoğrafının URL veya dosya yolunu girin.
+                                </small>
+
+                            </div>
+
+
+                            <!-- RESİM ÖNİZLEME -->
+                            <div class="col-12">
+
+                                <div id="imagePreviewBox"
+                                     class="text-center bg-light rounded p-4 d-none">
+
+                                    <small class="text-muted d-block mb-3">
+                                        Görsel Önizleme
+                                    </small>
+
+                                    <img id="employeeImagePreview"
+                                         src=""
+                                         alt="Personel"
+                                         style="
+                                            width:130px;
+                                            height:130px;
+                                            object-fit:cover;
+                                            border-radius:50%;
+                                            border:4px solid white;
+                                            box-shadow:0 5px 20px rgba(0,0,0,.08);
+                                         " />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4" />
+
+
+                        <!-- BUTTONS -->
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a asp-controller="Employees"
+                               asp-action="AllEmployees"
+                               class="btn btn-outline-secondary">
+
+                                <i class="fa fa-arrow-left me-1"></i>
+                                Vazgeç
+
+                            </a>
+
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fa fa-save me-1"></i>
+                                Personeli Kaydet
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const input =
+            document.getElementById("employeeImageUrl");
+
+        const preview =
+            document.getElementById("employeeImagePreview");
+
+        const box =
+            document.getElementById("imagePreviewBox");
+
+
+        input.addEventListener("input", function () {
+
+            const value = this.value.trim();
+
+            if (value !== "") {
+
+                preview.src = value;
+
+                box.classList.remove("d-none");
+
+            } else {
+
+                preview.src = "";
+
+                box.classList.add("d-none");
+
+            }
+
+        });
+
+    });
+
+</script>

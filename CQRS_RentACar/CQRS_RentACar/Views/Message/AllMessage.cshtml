@@ -1,0 +1,918 @@
+﻿@model List<CQRS_RentACar.CQRSPattern.Results.MessageResults.GetMessageQueryResult>
+
+@{
+    ViewData["Title"] = "Gelen Müşteri Mesajları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .message-page {
+        padding: 25px;
+        background: #f6f8fb;
+        min-height: calc(100vh - 70px);
+    }
+
+    .message-card {
+        background: #fff;
+        border: 1px solid #e8edf2;
+        border-radius: 14px;
+        padding: 24px;
+        box-shadow: 0 8px 25px rgba(20, 40, 60, .05);
+    }
+
+    .message-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .message-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .message-title-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: #eaf4ff;
+        color: #1688e7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .message-title h4 {
+        margin: 0;
+        color: #183149;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    .message-title p {
+        margin: 3px 0 0;
+        color: #8b98a6;
+        font-size: 11px;
+    }
+
+    .message-count {
+        background: #1688e7;
+        color: #fff;
+        border-radius: 20px;
+        padding: 7px 14px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .message-table thead th {
+        border-top: none;
+        border-bottom: 1px solid #e8edf2;
+        color: #7d8b99;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 13px 10px;
+    }
+
+    .message-table tbody td {
+        vertical-align: middle;
+        padding: 14px 10px;
+        border-color: #edf0f4;
+        color: #526474;
+        font-size: 12px;
+    }
+
+    .customer-name {
+        color: #1d3247;
+        font-weight: 700;
+    }
+
+    .customer-email {
+        color: #1688e7;
+        text-decoration: none;
+    }
+
+    .subject-badge {
+        display: inline-block;
+        background: #f4f6f8;
+        color: #546575;
+        border: 1px solid #e0e6eb;
+        border-radius: 7px;
+        padding: 5px 9px;
+        font-size: 10px;
+    }
+
+    .ai-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        border-radius: 20px;
+        padding: 5px 9px;
+        font-size: 9px;
+        font-weight: 600;
+    }
+
+    .ai-status-ready {
+        background: #e7f8ef;
+        color: #20a765;
+    }
+
+    .ai-status-empty {
+        background: #fff2e5;
+        color: #e78a22;
+    }
+
+    .btn-detail {
+        border: 1px solid #1688e7;
+        color: #1688e7;
+        background: transparent;
+        border-radius: 7px;
+        padding: 7px 11px;
+        font-size: 10px;
+        transition: .2s;
+    }
+
+        .btn-detail:hover {
+            background: #1688e7;
+            color: #fff;
+        }
+
+    .message-detail-box {
+        background: #f7f9fb;
+        border: 1px solid #e6ebf0;
+        border-radius: 10px;
+        padding: 16px;
+        color: #536575;
+        font-size: 12px;
+        line-height: 1.7;
+        white-space: pre-line;
+    }
+
+    .ai-reply-box {
+        background: linear-gradient( 135deg, #f0f8ff, #f8f4ff );
+        border: 1px solid #dfe9f4;
+        border-radius: 10px;
+        padding: 17px;
+        color: #42596d;
+        font-size: 12px;
+        line-height: 1.8;
+        white-space: pre-line;
+    }
+
+    .ai-reply-header {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 12px;
+        color: #183149;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    .ai-circle {
+        width: 31px;
+        height: 31px;
+        border-radius: 50%;
+        background: #1688e7;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        font-weight: 700;
+    }
+
+    .no-ai-reply {
+        background: #fff8ed;
+        border: 1px solid #f4dfbd;
+        border-radius: 10px;
+        padding: 14px;
+        color: #96703e;
+        font-size: 11px;
+    }
+
+    .modal-message-info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .modal-info-item {
+        background: #f7f9fb;
+        border-radius: 8px;
+        padding: 10px 12px;
+    }
+
+        .modal-info-item small {
+            display: block;
+            color: #9aa5b0;
+            font-size: 9px;
+            margin-bottom: 3px;
+        }
+
+        .modal-info-item strong {
+            color: #32485d;
+            font-size: 11px;
+        }
+
+    @@media(max-width: 767px) {
+        .message-page {
+            padding: 15px;
+        }
+
+        .message-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .modal-message-info {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+<div class="message-page">
+
+    <div class="message-card">
+
+        <!-- BAŞLIK -->
+
+        <div class="message-header">
+
+            <div class="message-title">
+
+                <div class="message-title-icon">
+                    <i class="fa fa-envelope"></i>
+                </div>
+
+                <div>
+                    <h4>Gelen Müşteri Mesajları</h4>
+
+                    <p>
+                        İletişim formundan gönderilen mesajları
+                        ve yapay zeka cevaplarını görüntüleyin.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="message-count">
+
+                Toplam:
+                @(Model?.Count ?? 0)
+
+            </div>
+
+        </div>
+
+
+        <!-- TABLO -->
+
+        <div class="table-responsive">
+
+            <table class="table message-table">
+
+                <thead>
+
+                    <tr>
+                        <th>#</th>
+                        <th>Müşteri</th>
+                        <th>E-Posta</th>
+                        <th>Konu</th>
+                        <th>Tarih</th>
+                        <th>AI Durumu</th>
+                        <th>İşlem</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        int count = 0;
+
+                        foreach (var item in Model)
+                        {
+                            count++;
+
+                            <tr>
+
+                                <td>
+                                    @count
+                                </td>
+
+
+                                <td>
+
+                                    <div class="customer-name">
+                                        @item.Name @item.Surname
+                                    </div>
+
+                                    <small class="text-muted">
+                                        @item.Phone
+                                    </small>
+
+                                </td>
+
+
+                                <td>
+
+                                    <a href="mailto:@item.Email"
+                                       class="customer-email">
+
+                                        @item.Email
+
+                                    </a>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="subject-badge">
+
+                                        @item.Subject
+
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    @if (item.MessageDate != default)
+                                    {
+                                        @item.MessageDate.ToString(
+                                        "dd.MM.yyyy HH:mm"
+                                                        )
+                                                        }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            -
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <td>
+
+                                    @if (!string.IsNullOrWhiteSpace(
+                                                                item.AiReply))
+                                    {
+                                        <span class="
+                                                        ai-status
+                                                        ai-status-ready">
+
+                                            <i class="fa fa-check"></i>
+
+                                            Cevap Hazır
+
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="
+                                                        ai-status
+                                                        ai-status-empty">
+
+                                            <i class="fa fa-clock-o"></i>
+
+                                            Cevap Yok
+
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <td>
+
+                                    <button type="button"
+                                            class="btn-detail btn-message-detail"
+                                            data-name="@item.Name @item.Surname"
+                                            data-email="@item.Email"
+                                            data-phone="@item.Phone"
+                                            data-subject="@item.Subject"
+                                            data-date="@item.MessageDate.ToString("dd.MM.yyyy HH:mm")"
+                                            data-detail="@item.MessageDeatil"
+                                            data-ai="@item.AiReply"
+                                            data-toggle="modal"
+                                            data-target="#messageDetailModal">
+
+                                        <i class="fa fa-eye"></i>
+                                        Detay
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+
+                            <td colspan="7"
+                                class="
+                                        text-center
+                                        py-5
+                                        text-muted">
+
+                                <i class="
+                                        fa
+                                        fa-envelope-o
+                                        fa-2x
+                                        mb-2">
+                                </i>
+
+                                <div>
+                                    Henüz gelen bir mesaj bulunmamaktadır.
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- MESAJ DETAY MODAL                                         -->
+<!-- ========================================================= -->
+
+<div class="modal fade"
+     id="messageDetailModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="
+        modal-dialog
+        modal-lg
+        modal-dialog-centered">
+
+        <div class="
+            modal-content
+            border-0
+            shadow">
+
+
+            <!-- HEADER -->
+
+            <div class="
+                modal-header
+                border-0"
+                 style="
+                    background:
+                        linear-gradient(
+                            100deg,
+                            #eaf6ff,
+                            #f5efff
+                        );
+                 ">
+
+                <div>
+
+                    <h5 class="modal-title"
+                        style="
+                            color:#183149;
+                            font-weight:700;
+                            font-size:15px;
+                        ">
+
+                        <i class="
+                            fa
+                            fa-envelope
+                            text-primary
+                            me-2">
+                        </i>
+
+                        Mesaj Detayı
+
+                    </h5>
+
+                    <small class="text-muted">
+                        Müşteri mesajı ve otomatik AI cevabı
+                    </small>
+
+                </div>
+
+
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Kapat">
+
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+            </div>
+
+
+            <!-- BODY -->
+
+            <div class="modal-body p-4">
+
+
+                <!-- MÜŞTERİ BİLGİLERİ -->
+
+                <div class="modal-message-info">
+
+                    <div class="modal-info-item">
+
+                        <small>
+                            Müşteri
+                        </small>
+
+                        <strong id="modalCustomerName">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="modal-info-item">
+
+                        <small>
+                            E-Posta
+                        </small>
+
+                        <strong id="modalCustomerEmail">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="modal-info-item">
+
+                        <small>
+                            Telefon
+                        </small>
+
+                        <strong id="modalCustomerPhone">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="modal-info-item">
+
+                        <small>
+                            Gönderim Tarihi
+                        </small>
+
+                        <strong id="modalMessageDate">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- KONU -->
+
+                <div class="mb-3">
+
+                    <label class="
+                        fw-bold
+                        text-secondary
+                        mb-1">
+
+                        Konu
+
+                    </label>
+
+                    <div id="modalMessageSubject"
+                         class="message-detail-box">
+                    </div>
+
+                </div>
+
+
+                <!-- MÜŞTERİ MESAJI -->
+
+                <div class="mb-4">
+
+                    <label class="
+                        fw-bold
+                        text-secondary
+                        mb-1">
+
+                        Müşteri Mesajı
+
+                    </label>
+
+                    <div id="modalMessageDetail"
+                         class="message-detail-box">
+                    </div>
+
+                </div>
+
+
+                <!-- AI CEVABI -->
+
+                <div>
+
+                    <div class="ai-reply-header">
+
+                        <div class="ai-circle">
+                            AI
+                        </div>
+
+                        Gemini Otomatik Cevabı
+
+                    </div>
+
+
+                    <div id="modalAiReply"
+                         class="ai-reply-box">
+                    </div>
+
+
+                    <div id="modalNoAiReply"
+                         class="no-ai-reply d-none">
+
+                        <i class="
+                            fa
+                            fa-info-circle
+                            me-1">
+                        </i>
+
+                        Bu mesaj için henüz otomatik
+                        AI cevabı oluşturulmamış.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="
+                modal-footer
+                border-0
+                bg-light">
+
+                <button type="button"
+                        class="
+                            btn
+                            btn-outline-primary
+                            btn-sm"
+                        onclick="copyAiReply()">
+
+                    <i class="
+                        fa
+                        fa-copy
+                        me-1">
+                    </i>
+
+                    AI Cevabını Kopyala
+
+                </button>
+
+
+                <button type="button"
+                        class="
+                            btn
+                            btn-secondary
+                            btn-sm"
+                        data-dismiss="modal">
+
+                    Kapat
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const buttons =
+                document.querySelectorAll(
+                    ".btn-message-detail"
+                );
+
+
+            buttons.forEach(
+                function (button) {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            const name =
+                                this.getAttribute(
+                                    "data-name"
+                                ) || "-";
+
+
+                            const email =
+                                this.getAttribute(
+                                    "data-email"
+                                ) || "-";
+
+
+                            const phone =
+                                this.getAttribute(
+                                    "data-phone"
+                                ) || "-";
+
+
+                            const subject =
+                                this.getAttribute(
+                                    "data-subject"
+                                ) || "-";
+
+
+                            const date =
+                                this.getAttribute(
+                                    "data-date"
+                                ) || "-";
+
+
+                            const detail =
+                                this.getAttribute(
+                                    "data-detail"
+                                ) || "";
+
+
+                            const aiReply =
+                                this.getAttribute(
+                                    "data-ai"
+                                ) || "";
+
+
+                            document
+                                .getElementById(
+                                    "modalCustomerName"
+                                )
+                                .textContent =
+                                    name;
+
+
+                            document
+                                .getElementById(
+                                    "modalCustomerEmail"
+                                )
+                                .textContent =
+                                    email;
+
+
+                            document
+                                .getElementById(
+                                    "modalCustomerPhone"
+                                )
+                                .textContent =
+                                    phone;
+
+
+                            document
+                                .getElementById(
+                                    "modalMessageDate"
+                                )
+                                .textContent =
+                                    date;
+
+
+                            document
+                                .getElementById(
+                                    "modalMessageSubject"
+                                )
+                                .textContent =
+                                    subject;
+
+
+                            document
+                                .getElementById(
+                                    "modalMessageDetail"
+                                )
+                                .textContent =
+                                    detail;
+
+
+                            const aiBox =
+                                document.getElementById(
+                                    "modalAiReply"
+                                );
+
+
+                            const noAiBox =
+                                document.getElementById(
+                                    "modalNoAiReply"
+                                );
+
+
+                            if (aiReply.trim()) {
+
+                                aiBox.textContent =
+                                    aiReply;
+
+                                aiBox.classList.remove(
+                                    "d-none"
+                                );
+
+                                noAiBox.classList.add(
+                                    "d-none"
+                                );
+
+                            }
+                            else {
+
+                                aiBox.textContent =
+                                    "";
+
+                                aiBox.classList.add(
+                                    "d-none"
+                                );
+
+                                noAiBox.classList.remove(
+                                    "d-none"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    function copyAiReply() {
+
+        const aiReply =
+            document.getElementById(
+                "modalAiReply"
+            ).textContent.trim();
+
+
+        if (!aiReply) {
+
+            alert(
+                "Kopyalanacak bir AI cevabı bulunmuyor."
+            );
+
+            return;
+        }
+
+
+        navigator.clipboard
+            .writeText(aiReply)
+            .then(
+                function () {
+
+                    alert(
+                        "AI cevabı panoya kopyalandı."
+                    );
+
+                }
+            )
+            .catch(
+                function () {
+
+                    alert(
+                        "Cevap kopyalanamadı."
+                    );
+
+                }
+            );
+    }
+
+</script>

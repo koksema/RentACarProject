@@ -1,0 +1,211 @@
+﻿@model CQRS_RentACar.CQRSPattern.Commands.SliderCommands.CreateSliderCommand
+
+@{
+    ViewData["Title"] = "Yeni Slider Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-10">
+
+            <div class="card border-0 shadow-sm">
+
+                <!-- HEADER -->
+                <div class="card-header bg-white border-0 pt-4 px-4">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="me-3"
+                             style="
+                                width:48px;
+                                height:48px;
+                                border-radius:12px;
+                                background:#eaf4ff;
+                                color:#1688e7;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:19px;
+                             ">
+
+                            <i class="fa fa-image"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h5 class="fw-bold mb-1">
+                                Yeni Slider Ekle
+                            </h5>
+
+                            <small class="text-muted">
+                                Ana sayfada gösterilecek yeni bir slider oluşturabilirsiniz.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BODY -->
+                <div class="card-body p-4">
+
+                    <form asp-controller="Slider"
+                          asp-action="CreateSlider"
+                          method="post">
+
+                        <div class="row g-4">
+
+
+                            <!-- TITLE -->
+                            <div class="col-12">
+
+                                <label asp-for="Title"
+                                       class="form-label fw-semibold">
+
+                                    Slider Başlığı
+
+                                </label>
+
+                                <input asp-for="Title"
+                                       class="form-control"
+                                       placeholder="Örn: Hayalinizdeki Aracı Kiralayın"
+                                       required />
+
+                            </div>
+
+
+                            <!-- IMAGE URL -->
+                            <div class="col-12">
+
+                                <label asp-for="ImgUrl"
+                                       class="form-label fw-semibold">
+
+                                    Slider Görseli
+
+                                </label>
+
+                                <input asp-for="ImgUrl"
+                                       id="sliderImageUrl"
+                                       class="form-control"
+                                       placeholder="/images/slider/slider-1.jpg"
+                                       required />
+
+                                <small class="text-muted">
+                                    Görselin URL veya dosya yolunu girin.
+                                </small>
+
+                            </div>
+
+
+                            <!-- PREVIEW -->
+                            <div class="col-12">
+
+                                <div id="sliderPreviewBox"
+                                     class="bg-light rounded p-4 text-center d-none">
+
+                                    <small class="text-muted d-block mb-3">
+                                        Slider Önizleme
+                                    </small>
+
+
+                                    <img id="sliderImagePreview"
+                                         src=""
+                                         alt="Slider Önizleme"
+                                         style="
+                                            width:100%;
+                                            max-width:650px;
+                                            height:300px;
+                                            object-fit:cover;
+                                            border-radius:14px;
+                                            box-shadow:0 6px 25px rgba(0,0,0,.08);
+                                         " />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4" />
+
+
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a asp-controller="Slider"
+                               asp-action="AllSlider"
+                               class="btn btn-outline-secondary">
+
+                                <i class="fa fa-arrow-left me-1"></i>
+                                Vazgeç
+
+                            </a>
+
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <i class="fa fa-save me-1"></i>
+                                Sliderı Kaydet
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const input =
+            document.getElementById("sliderImageUrl");
+
+        const preview =
+            document.getElementById("sliderImagePreview");
+
+        const previewBox =
+            document.getElementById("sliderPreviewBox");
+
+
+        input.addEventListener("input", function () {
+
+            const imageUrl = this.value.trim();
+
+            if (imageUrl !== "") {
+
+                preview.src = imageUrl;
+
+                previewBox.classList.remove("d-none");
+
+            }
+            else {
+
+                preview.src = "";
+
+                previewBox.classList.add("d-none");
+
+            }
+
+        });
+
+    });
+
+</script>

@@ -1,0 +1,389 @@
+﻿@model CQRS_RentACar.CQRSPattern.Results.AboutResults.GetAboutByIdQueryResult
+
+<div class="container-fluid overflow-hidden about py-5">
+    <div class="container py-5">
+        <div class="row g-5">
+
+            <!-- SOL ALAN -->
+            <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
+
+                <div class="about-item">
+
+                    <!-- BAŞLIK VE AÇIKLAMA -->
+                    <div class="pb-5">
+
+                        <h1 class="display-5 text-capitalize">
+                            Cental
+                            <span class="text-primary">
+                                @Model.Title
+                            </span>
+                        </h1>
+
+                        <p class="mb-0">
+                            @Model.Description
+                        </p>
+
+                    </div>
+
+
+                    <!-- VİZYON VE MİSYON -->
+                    <div class="row g-4">
+
+                        <!-- VİZYON -->
+                        <div class="col-lg-6">
+
+                            <div class="about-item-inner border p-4">
+
+                                <div class="about-icon mb-4">
+
+                                    <img src="/Cental-1.0.0/img/about-icon-1.png"
+                                         class="img-fluid w-50 h-50"
+                                         alt="Vizyonumuz">
+
+                                </div>
+
+                                <h5 class="mb-3">
+                                    Vizyonumuz
+                                </h5>
+
+                                <p class="mb-0">
+                                    Araç kiralama sektöründe güvenilir,
+                                    yenilikçi ve müşteri odaklı hizmet
+                                    anlayışıyla öncü bir marka olmak.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MİSYON -->
+                        <div class="col-lg-6">
+
+                            <div class="about-item-inner border p-4">
+
+                                <div class="about-icon mb-4">
+
+                                    <img src="/Cental-1.0.0/img/about-icon-2.png"
+                                         class="img-fluid h-50 w-50"
+                                         alt="Misyonumuz">
+
+                                </div>
+
+                                <h5 class="mb-3">
+                                    Misyonumuz
+                                </h5>
+
+                                <p class="mb-0">
+                                    Müşterilerimize güvenli, konforlu ve
+                                    kaliteli araçları uygun fiyatlarla
+                                    sunarak keyifli bir kiralama deneyimi
+                                    yaşatmak.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AÇIKLAMA -->
+                    <p class="text-item my-4">
+
+                        Geniş araç filomuz, kolay rezervasyon seçeneklerimiz
+                        ve müşteri memnuniyetini ön planda tutan hizmet
+                        anlayışımızla yolculuklarınızı daha konforlu hale
+                        getiriyoruz. İhtiyacınıza uygun aracı kolayca
+                        seçebilir ve güvenle kiralayabilirsiniz.
+
+                    </p>
+
+
+                    <div class="row g-4">
+
+                        <!-- DENEYİM -->
+                        <div class="col-lg-6">
+
+                            <div class="text-center rounded bg-secondary p-4">
+
+                                <h1 class="display-6 text-white">
+                                    17
+                                </h1>
+
+                                <h5 class="text-light mb-0">
+                                    Yıllık Deneyim
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ÖZELLİKLER -->
+                        <div class="col-lg-6">
+
+                            <div class="rounded">
+
+                                <p class="mb-2">
+
+                                    <i class="fa fa-check-circle text-primary me-1"></i>
+
+                                    Geniş ve güncel araç filosu
+
+                                </p>
+
+                                <p class="mb-2">
+
+                                    <i class="fa fa-check-circle text-primary me-1"></i>
+
+                                    Uygun ve şeffaf fiyatlandırma
+
+                                </p>
+
+                                <p class="mb-2">
+
+                                    <i class="fa fa-check-circle text-primary me-1"></i>
+
+                                    Güvenli rezervasyon sistemi
+
+                                </p>
+
+                                <p class="mb-0">
+
+                                    <i class="fa fa-check-circle text-primary me-1"></i>
+
+                                    7/24 müşteri desteği
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BUTON -->
+                        <div class="col-lg-5 d-flex align-items-center">
+
+                            <a href="#"
+                               class="btn btn-primary rounded py-3 px-5">
+
+                                Daha Fazla Bilgi
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- KURUCU -->
+                        <div class="col-lg-7">
+
+                            <div class="d-flex align-items-center">
+
+                                <img src="/Cental-1.0.0/img/attachment-img.jpg"
+                                     class="img-fluid rounded-circle border border-4 border-secondary"
+                                     style="width:100px; height:100px; object-fit:cover;"
+                                     alt="Kurucu">
+
+                                <div class="ms-4">
+
+                                    <h4>
+                                        William Burgess
+                                    </h4>
+
+                                    <p class="mb-0">
+                                        Cental Kurucusu
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SAĞ GÖRSELLER -->
+            <div class="col-xl-6 wow fadeInRight"
+                 data-wow-delay="0.2s">
+
+                <div class="about-img">
+
+                    <div class="img-1">
+
+                        <img src="/Cental-1.0.0/img/about-img.jpg"
+                             class="img-fluid rounded h-100 w-100"
+                             alt="Cental Araç Kiralama">
+
+                    </div>
+
+                    <div class="img-2">
+
+                        <img src="/Cental-1.0.0/img/about-img-1.jpg"
+                             class="img-fluid rounded w-100"
+                             alt="Araç Kiralama Hizmeti">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- İSTATİSTİK ALANI -->
+<div class="container-fluid counter bg-secondary py-5">
+
+    <div class="container py-5">
+
+        <div class="row g-5">
+
+
+            <!-- MUTLU MÜŞTERİ -->
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp"
+                 data-wow-delay="0.1s">
+
+                <div class="counter-item text-center">
+
+                    <div class="counter-item-icon mx-auto">
+
+                        <i class="fas fa-thumbs-up fa-2x"></i>
+
+                    </div>
+
+                    <div class="counter-counting my-3">
+
+                        <span class="text-white fs-2 fw-bold"
+                              data-toggle="counter-up">
+                            829
+                        </span>
+
+                        <span class="h1 fw-bold text-white">
+                            +
+                        </span>
+
+                    </div>
+
+                    <h4 class="text-white mb-0">
+                        Mutlu Müşteri
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <!-- ARAÇ SAYISI -->
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp"
+                 data-wow-delay="0.3s">
+
+                <div class="counter-item text-center">
+
+                    <div class="counter-item-icon mx-auto">
+
+                        <i class="fas fa-car-alt fa-2x"></i>
+
+                    </div>
+
+                    <div class="counter-counting my-3">
+
+                        <span class="text-white fs-2 fw-bold"
+                              data-toggle="counter-up">
+                            56
+                        </span>
+
+                        <span class="h1 fw-bold text-white">
+                            +
+                        </span>
+
+                    </div>
+
+                    <h4 class="text-white mb-0">
+                        Araç Sayısı
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <!-- HİZMET NOKTASI -->
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp"
+                 data-wow-delay="0.5s">
+
+                <div class="counter-item text-center">
+
+                    <div class="counter-item-icon mx-auto">
+
+                        <i class="fas fa-building fa-2x"></i>
+
+                    </div>
+
+                    <div class="counter-counting my-3">
+
+                        <span class="text-white fs-2 fw-bold"
+                              data-toggle="counter-up">
+                            127
+                        </span>
+
+                        <span class="h1 fw-bold text-white">
+                            +
+                        </span>
+
+                    </div>
+
+                    <h4 class="text-white mb-0">
+                        Hizmet Noktası
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOPLAM KİLOMETRE -->
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp"
+                 data-wow-delay="0.7s">
+
+                <div class="counter-item text-center">
+
+                    <div class="counter-item-icon mx-auto">
+
+                        <i class="fas fa-road fa-2x"></i>
+
+                    </div>
+
+                    <div class="counter-counting my-3">
+
+                        <span class="text-white fs-2 fw-bold"
+                              data-toggle="counter-up">
+                            589
+                        </span>
+
+                        <span class="h1 fw-bold text-white">
+                            +
+                        </span>
+
+                    </div>
+
+                    <h4 class="text-white mb-0">
+                        Bin Km Yolculuk
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

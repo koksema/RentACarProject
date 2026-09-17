@@ -1,0 +1,213 @@
+﻿@model CQRS_RentACar.CQRSPattern.Results.EmployeesResults.GetEmployeesByIdQueryResult
+
+@{
+    ViewData["Title"] = "Personel Güncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-10">
+
+            <div class="card border-0 shadow-sm">
+
+                <!-- HEADER -->
+                <div class="card-header bg-white border-0 pt-4 px-4">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="me-3"
+                             style="
+                                width:48px;
+                                height:48px;
+                                border-radius:12px;
+                                background:#fff5e5;
+                                color:#e6a020;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:19px;
+                             ">
+
+                            <i class="fa fa-pencil"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h5 class="fw-bold mb-1">
+                                Personel Güncelle
+                            </h5>
+
+                            <small class="text-muted">
+                                @Model.NameSurname personelinin
+                                bilgilerini düzenleyebilirsiniz.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORM -->
+                <div class="card-body p-4">
+
+                    <form asp-controller="Employees"
+                          asp-action="UpdateEmployees"
+                          method="post">
+
+
+                        <!-- ID -->
+                        <input type="hidden"
+                               name="EmployeesId"
+                               value="@Model.EmployeesId" />
+
+
+                        <div class="row g-4">
+
+
+                            <!-- AD SOYAD -->
+                            <div class="col-12">
+
+                                <label class="form-label fw-semibold">
+                                    Ad Soyad
+                                </label>
+
+                                <input type="text"
+                                       name="NameSurname"
+                                       value="@Model.NameSurname"
+                                       class="form-control"
+                                       required />
+
+                            </div>
+
+
+                            <!-- MESLEK -->
+                            <div class="col-12">
+
+                                <label class="form-label fw-semibold">
+                                    Görev / Meslek
+                                </label>
+
+                                <input type="text"
+                                       name="Profession"
+                                       value="@Model.Profession"
+                                       class="form-control"
+                                       required />
+
+                            </div>
+
+
+                            <!-- IMAGE URL -->
+                            <div class="col-12">
+
+                                <label class="form-label fw-semibold">
+                                    Personel Görseli
+                                </label>
+
+                                <input type="text"
+                                       name="ImgUrl"
+                                       id="employeeImageUrl"
+                                       value="@Model.ImgUrl"
+                                       class="form-control" />
+
+                                <small class="text-muted">
+                                    Görsel adresini değiştirerek personel
+                                    fotoğrafını güncelleyebilirsiniz.
+                                </small>
+
+                            </div>
+
+
+                            <!-- IMAGE PREVIEW -->
+                            <div class="col-12">
+
+                                <div class="bg-light rounded p-4 text-center">
+
+                                    <small class="text-muted d-block mb-3">
+                                        Mevcut Görsel
+                                    </small>
+
+                                    <img id="employeeImagePreview"
+                                         src="@Model.ImgUrl"
+                                         alt="@Model.NameSurname"
+                                         style="
+                                            width:140px;
+                                            height:140px;
+                                            object-fit:cover;
+                                            border-radius:50%;
+                                            border:4px solid white;
+                                            box-shadow:0 5px 20px rgba(0,0,0,.08);
+                                         " />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4" />
+
+
+                        <!-- BUTTONS -->
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <a asp-controller="Employees"
+                               asp-action="AllEmployees"
+                               class="btn btn-outline-secondary">
+
+                                <i class="fa fa-arrow-left me-1"></i>
+                                Vazgeç
+
+                            </a>
+
+
+                            <button type="submit"
+                                    class="btn btn-warning text-white">
+
+                                <i class="fa fa-save me-1"></i>
+                                Değişiklikleri Kaydet
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const input =
+            document.getElementById("employeeImageUrl");
+
+        const preview =
+            document.getElementById("employeeImagePreview");
+
+
+        input.addEventListener("input", function () {
+
+            preview.src = this.value;
+
+        });
+
+    });
+
+</script>
